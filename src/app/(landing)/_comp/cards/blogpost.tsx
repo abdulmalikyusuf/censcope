@@ -22,7 +22,7 @@ export default function BlogPostCard() {
                 Rebum diam clita lorem erat magna est erat
             </h3>
 
-            <Link href="#" className="text-primary uppercase font-bold text-lg flex items-center gap-2">
+            <Link href="#" className="text-primary hover:text-red-400 uppercase font-bold text-lg flex items-center gap-2">
                 read more <FaArrowRightLong size={16} />
             </Link>
         </div>
