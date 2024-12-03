@@ -4,21 +4,44 @@ export default {
   plugins: [],
   theme: {
     extend: {
-      colors: {
-        dark: "var(--dark)",
-        light: "var(--light)",
-        primary: "var(--primary)",
-        secondary: "var(--secondary)",
+      margin: {
+        'xs': '2%',
+        'sm': '4%',
+        'md': '6%',
+        'lg': '8%',
+        'xl': '10%',
+        '2xl': '12%',
+        '3xl': '14%',
+        '4xl': '16%',
+        '5xl': '18%',
+        '6xl': '20%'
+      },
+      padding: {
+        'xs': '2%',
+        'sm': '4%',
+        'md': '6%',
+        'lg': '8%',
+        'xl': '10%',
+        '2xl': '12%',
+        '3xl': '14%',
+        '4xl': '16%',
+        '5xl': '18%',
+        '6xl': '20%'
       },
       backgroundImage: {
-        "dotted-pattern": "radial-gradient(var(--primary) 10%, transparent 10%)",
+        'support': "url('/images/support.jpg')",
+        'spiral': "url('/images/spiral-pattern.png')",
+        'white-paper': "url('/images/white-paper.png')",
+        'newsletter': "url('/images/newsletter-bg.svg')",
+        "banner-slide-back": "url('/images/home-slider-2-bg-back.jpg')",
+        "banner-slide-front": "url('/images/home-slider-2-bg-front.png')",
+        "home-slider-maison-1": "url('/images/home-slider-2-maison_1.png')",
       },
-      backgroundSize: {
-        "dotted-size": "4.5px 4.5px",
-      },
-      backgroundColor: {
-        "dark-bg": "#333",
-      },
+      scale: {
+        '200': '2',
+        '300': '3',
+        '400': '4'
+      }
     },
   },
   content: ["./src/**/**/*.{js,ts,jsx,tsx,mdx}"],
