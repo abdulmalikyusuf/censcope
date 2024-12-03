@@ -8,7 +8,7 @@ export default function Discover() {
     const { ref } = useIntersectionObserver();
 
     return <section ref={ref} id="discover" className="py-24 flex flex-none gap-20 flex-col items-center bg-spiral bg-gray-100 bg-contain bg-center">
-        <header className="w-full flex flex-col items-center md:items-start font-black px-xl">
+        <header className="w-full flex flex-col items-center md:items-start  px-xl">
             <h2 className="text-2xl md:text-4xl capitalize">
                 Discover Première Urgence Internationale
             </h2>
@@ -39,7 +39,7 @@ export default function Discover() {
 
         <div className="p-10 flex flex-1 w-10/12 md:w-4/5 xl:w-3/5 flex-col items-center bg-white">
             <p className="italic text-3xl first-letter:capitalize font-cavet">join us </p>
-            <h3 className="text-red-600 text-xl md:text-3xl font-black mb-4">in the field and at headquarters</h3>
+            <h3 className="text-red-600 text-xl md:text-3xl  mb-4">in the field and at headquarters</h3>
 
             <button className="outline-none border-2 relative border-black hover:border-red-600 px-8 py-3 group transition-all before:absolute before:w-0 hover:before:w-full before:h-full before:bg-red-600 before:left-0 before:top-0 before:transition-all before:duration-300 before:-z-10">
                 <span className="z-50 gap-2 flex items-center  group-hover:text-white">
