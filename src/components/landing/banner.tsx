@@ -17,7 +17,7 @@ export default function Banner() {
 
         <div style={{ transform: `translateX(${xAxis / 10}px) translateY(${yAxis / 10}px)` }} className="absolute text-2xl md:text-7xl z-20 flex flex-col items-center gap-2 uppercase  top-60 md:top-36 md:left-28">
             <h2 className="text-white ">helping communities</h2>
-            <h2 className="bg-white-paper p-2 text-red-600">out of the red zone</h2>
+            <h2 className="bg-white-paper p-2 text-cyan-600">out of the red zone</h2>
         </div>
     </section>;
 }

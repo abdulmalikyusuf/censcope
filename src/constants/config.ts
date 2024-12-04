@@ -9,13 +9,20 @@ export const socialLinks = [
     { href: "https://instagram.com", icon: FaInstagram },
     { href: "https://snapchat.com", icon: FaSnapchatGhost },
 ];
+
+export const discoverCards = [
+    { title: "3,007", content: "national staff", },
+    { title: "199", content: "projects in 25 countries and 5 geographical areas", },
+    { title: "5 M", content: "people supported worldwide", },
+];
+
 export const supportCards = [
     {
         title: "make a",
         titleHighlight: "donation",
         description: "support our actions with populations victims of humanitarian crises",
         buttonText: "i act now",
-        bgColor: "bg-red-600",
+        bgColor: "bg-cyan-600",
     },
     {
         title: "be part of the",
@@ -29,6 +36,6 @@ export const supportCards = [
         titleHighlight: "partner",
         description: "involve your company or organisation in our actions",
         buttonText: "learn more",
-        bgColor: "bg-blue-600",
+        bgColor: "bg-cyan-600",
     }
 ];

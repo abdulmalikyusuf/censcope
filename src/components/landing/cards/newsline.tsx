@@ -25,7 +25,7 @@ export default function NewslineCard() {
 
             <h3 className="text-2xl text-white  w-full">
                 {title.map((word) => (
-                    <span key={word} className="group-hover:bg-red-600 inline-block px-1">
+                    <span key={word} className="group-hover:bg-cyan-600 inline-block px-1">
                         {word}
                     </span>
                 ))}

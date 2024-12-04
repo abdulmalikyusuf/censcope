@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function CommitCard(props: { visible: boolean }) {
-    const length = React.useMemo(() => Math.ceil(Math.random() * 5),[]);
+    const length = React.useMemo(() => Math.ceil(Math.random() * 5), []);
 
     return <Link href="#" className="w-80 h-auto group bg-gray-200 flex flex-none flex-col items-start justify-between snap-start relative overflow-hidden">
         <div className="w-full relative h-auto aspect-square">
@@ -13,7 +13,7 @@ export default function CommitCard(props: { visible: boolean }) {
         </div>
 
         <div className="w-full h-full p-10">
-            <p className="text-lg group-hover:text-red-600 font-serif">
+            <p className="text-lg group-hover:text-cyan-600 font-serif">
                 {Array.from({ length: length }).map((_, id) => (
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum."
                 ))}

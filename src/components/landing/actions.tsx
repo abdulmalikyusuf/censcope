@@ -11,7 +11,7 @@ export default function Actions() {
                 our actions
             </h2>
             <p className="text-md md:text-xl">
-                Première Urgence Internationale is <span className="text-red-600">199 projects</span> in <span className="text-red-600">25 different countries.</span>
+                Première Urgence Internationale is <span className="text-cyan-600">199 projects</span> in <span className="text-cyan-600">25 different countries.</span>
             </p>
         </header>
 

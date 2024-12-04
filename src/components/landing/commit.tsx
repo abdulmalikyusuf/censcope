@@ -5,7 +5,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useIntersectionObserver } from "@/hooks/observe.hook";
 
 export default function Commit() {
-    const { ref,entryData } = useIntersectionObserver();
+    const { ref, entryData } = useIntersectionObserver();
 
     return <section ref={ref} id="commit" className="flex flex-col gap-10 py-10">
         <header className="w-full flex gap-4 items-center justify-between flex-wrap px-md md:px-2xl">
@@ -19,8 +19,8 @@ export default function Commit() {
             </div>
 
             <div className="flex ml-auto items-center gap-2 text-white">
-                <FaArrowLeft onClick={() => { }} className="p-2 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-red-600 transition-all" />
-                <FaArrowRight onClick={() => { }} className="p-2 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-red-600 transition-all" />
+                <FaArrowLeft onClick={() => { }} className="p-2 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all" />
+                <FaArrowRight onClick={() => { }} className="p-2 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all" />
             </div>
         </header>
 
