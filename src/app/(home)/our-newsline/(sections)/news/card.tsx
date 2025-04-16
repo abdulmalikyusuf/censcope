@@ -2,14 +2,23 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import { supportImg } from "@/constants/media";
+import { format } from "date-fns";
 
-export default function NewsCard() {
-  const title = "A poor family living in a dirty, rundown neighborhood";
+interface NewsCardProps {
+  tags: {
+    name: string;
+    id: string;
+  }[];
+  title: string;
+  slug: string;
+  updatedAt: Date
+}
+export default function NewsCard({title, tags, updatedAt,slug}:NewsCardProps) {
 
   return (
     <Link
-      href={`/newsline/100`}
-      className="basis-80 group gap-2 aspect-[3/4.5] bg-gray-600 flex flex-none flex-col items-start justify-between p-8 snap-center lg:snap-start relative overflow-hidden"
+      href={`/newsline/${slug}`}
+      className="aspect-[3/4] group gap-2 bg-gray-600 flex flex-none flex-col items-start justify-between p-4 xl:p-6 snap-center lg:snap-start relative overflow-hidden"
     >
       <Image
         alt=""
@@ -24,21 +33,19 @@ export default function NewsCard() {
 
       <div className="z-10 mt-auto flex flex-col gap-2">
         <div className="w-full flex items-center justify-start gap-2 capitalize  text-xs">
-          {title
-            .split(" ")
-            .slice(0, 3)
-            .map((word) => (
+          {tags.slice(2)
+            .map((tag) => (
               <span
-                key={word}
+                key={tag.id}
                 className="rounded-full px-4 py-2 text-black bg-white"
               >
-                {word}
+                {tag.name}
               </span>
             ))}
 
-          {title.split(" ").length > 3 && (
+          {tags.length > 2 && (
             <span className="rounded-full px-4 py-2 text-black bg-white gap-1 flex items-center justify-center relative before:w-1 before:h-1 before:rounded-full before:bg-black">
-              1
+              {tags.length-2}
             </span>
           )}
         </div>
@@ -57,7 +64,7 @@ export default function NewsCard() {
 
       <button className="w-full flex items-center justify-between overflow-hidden text-white -mt-4 group-hover:mt-0 transition-all">
         <span className="font-anton text-xs translate-y-4 group-hover:translate-y-0 transition-all">
-          20 december 2024
+        {format(updatedAt, "LLLL dd, yyyy")}
         </span>
         <FaArrowRight className="text-transparent group-hover:text-white transition-all" />
       </button>
