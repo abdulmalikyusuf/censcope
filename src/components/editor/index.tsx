@@ -172,7 +172,7 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 p-4 h-full"
       >
-        <header className="sticky top-0 group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
+        <header className="sticky top-0 z-20 group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear">
           <BorderTrail />
           <div className="flex w-full items-center py-2 px-2 justify-between border-b bg-background">
             <SidebarTrigger />
@@ -227,28 +227,28 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
           onClick={() => {
             editor?.chain().focus().run();
           }}
-          className="cursor-text sticky top-14 z-0 min-h-[18rem] bg-background p-2 border-2 rounded-md"
+          className="cursor-text bg-background p-2 pt-0 border-2 rounded-md h-[calc(100dvh-80px)] overflow-y-auto relative"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 pt-2 sticky top-0 z-10 bg-background">
             <ToolbarProvider editor={editor}>
-              <UndoToolbar />
-              <RedoToolbar />
+              <UndoToolbar type="button"/>
+              <RedoToolbar type="button"/>
               <Separator orientation="vertical" className="h-7" />
-              <HeadingToolbar />
-              <BoldToolbar />
-              <ItalicToolbar />
-              <LinkToolbar />
-              <UnderlineToolbar />
-              <BulletListToolbar />
-              <OrderedListToolbar />
+              <HeadingToolbar type="button"/>
+              <BoldToolbar type="button"/>
+              <ItalicToolbar type="button"/>
+              <LinkToolbar type="button"/>
+              <UnderlineToolbar type="button"/>
+              <BulletListToolbar type="button"/>
+              <OrderedListToolbar type="button"/>
               <AlignmentTooolbar />
-              <ImagePlaceholderToolbar />
+              <ImagePlaceholderToolbar type="button"/>
               <ColorHighlightToolbar />
               <SearchAndReplaceToolbar />
             </ToolbarProvider>
           </div>
           <EditorContent
-            className="outline-none [&>.tiptap.ProseMirror]:px-10 [&>.tiptap.ProseMirror]:py-5 -z-10 !font-[var(--font-sans)]"
+            className="outline-none [&>.tiptap.ProseMirror]:px-10 [&>.tiptap.ProseMirror]:py-5 -z-10 min-h-[18rem] !h-full !font-[var(--font-sans)]"
             editor={editor}
           />
         </div>

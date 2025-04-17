@@ -1,11 +1,16 @@
 "use client";
 
 import { useDebouncedCallback } from "use-debounce";
-import { parseAsString, useQueryState, useQueryStates } from "nuqs";
+import { parseAsString, parseAsStringEnum,useQueryState, useQueryStates } from "nuqs";
 
 import { SelectTag } from "@/db/schema";
 import { authorIdParser, qParser } from "@/lib/parsers";
 import { X } from "lucide-react";
+
+enum SortOrder {
+  asc = "oldest",
+  desc = "newest",
+}
 
 interface FilterProps {
   count: number;
@@ -32,7 +37,12 @@ export function Filter({ count, tags, authors }: FilterProps) {
 
   const [sort, setSort] = useQueryState(
     "sort",
-    parseAsString.withDefault("asc").withOptions({ shallow: false })
+    parseAsStringEnum<SortOrder>(Object.values(SortOrder)).withDefault(
+        SortOrder.desc
+      ).withOptions({
+      history: "replace",
+      shallow: false,
+    }),
   );
 
   const handleInputChange = (value: string) => {
@@ -131,11 +141,11 @@ export function Filter({ count, tags, authors }: FilterProps) {
         <select
           className="w-60 py-2 rounded-md bg-white border border-gray-200 outline-gray-200"
           value={sort}
-          onChange={(e) => setSort(e.target.value)}
+          onChange={(e) => setSort(e.target.value as SortOrder)}
         >
           <option hidden>Sort by</option>
-          <option value="desc">Sort from most recent to oldest</option>
-          <option value="asc">Sort from oldest to most recent</option>
+          <option value={SortOrder.desc}>Sort from most recent to oldest</option>
+          <option value={SortOrder.asc}>Sort from oldest to most recent</option>
         </select>
       </div>
     </div>

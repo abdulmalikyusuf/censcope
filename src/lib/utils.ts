@@ -115,9 +115,35 @@ export function generateSummary(html: string | null): string {
   }
 }
 
+export function getFirstImageSrc(htmlString: string): string | null {
+  // Method 1: Using Regular Expressions (Less Robust)
+  const regex = /<img\s+[^>]*?src="([^"]*)"/i;
+  const match = htmlString.match(regex);
+
+  if (match && match[1]) {
+    return match[1];
+  }
+
+  // Method 2: Using DOMParser (More Robust for Browser Environments)
+  if (typeof DOMParser !== "undefined") {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    const firstImage = doc.querySelector("img");
+
+    if (firstImage && firstImage.getAttribute("src")) {
+      return firstImage.getAttribute("src");
+    }
+  }
+
+  return null; // Return null if no image is found
+}
+
 export function getSupabaseImagePath(partialPath: string) {
-  const BUCKET_NAME = process.env.SUPABASE_BUCKET_NAME;
-  const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const BUCKET_NAME =
+    process.env.SUPABASE_BUCKET_NAME ??
+    process.env.NEXT_PUBLIC_SUPABASE_BUCKET_NAME;
+  const SUPABASE_URL =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
   // check if the path is a valid URL
   if (isValidUrl(partialPath.trim())) {
     return partialPath; // Return the URL as is

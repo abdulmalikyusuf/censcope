@@ -7,7 +7,7 @@ import {
 
 import { db } from "@/db";
 import { posts, tags as tagsTable, users } from "@/db/schema";
-import NewsCard from "./(sections)/news/card";
+import {NewsCard} from "./(sections)/news/card";
 import Banner from "./(sections)/banner";
 import { Filter } from "./(sections)/filter";
 
@@ -86,6 +86,7 @@ async function Page(props: { searchParams: SearchParams }) {
             key={post.id}
             title={post.title}
             slug={post.slug}
+            content={post.content}
             tags={post.tags}
             updatedAt={post.updatedAt}
           />

@@ -95,3 +95,5 @@ export type InsertPost = typeof posts.$inferInsert;
 export type SelectPost = typeof posts.$inferSelect;
 export type InsertTag = typeof tags.$inferInsert;
 export type SelectTag = typeof tags.$inferSelect;
+export type InsertImage = typeof images.$inferInsert;
+export type SelectImage = typeof images.$inferSelect;

@@ -160,7 +160,6 @@ function TiptapImage(props: NodeViewProps) {
 		setResizeInitialWidth(0);
 	}
 
-	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		// Mouse events
 		window.addEventListener("mousemove", resize);
@@ -174,6 +173,7 @@ function TiptapImage(props: NodeViewProps) {
 			window.removeEventListener("touchmove", handleTouchMove);
 			window.removeEventListener("touchend", handleTouchEnd);
 		};
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [resizing, resizeInitialMouseX, resizeInitialWidth]);
 
 	return (

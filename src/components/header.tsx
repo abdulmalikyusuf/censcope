@@ -48,24 +48,24 @@ export function Header() {
                 Ctrl&nbsp;K
               </kbd>
             </button>
-            <Link className="text-sm/6 text-gray-950 dark:text-white" href=".">
+            <Link className="text-sm/6 text-gray-950 dark:text-white" href="/admin">
               Posts
             </Link>
             <Link
               className="text-sm/6 text-gray-950 dark:text-white"
-              href="/gallery"
+              href="/admin/gallery"
             >
               Gallery
             </Link>
             <Link
               className="text-sm/6 text-gray-950 dark:text-white"
-              href="/users"
+              href="/admin/users"
             >
               Users
             </Link>
             <CreatePostButton className="group inline-flex gap-0.5 flex-nowrap relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300">
               <span className="absolute inset-0 border border-dashed border-sky-300/60 bg-sky-400/10 group-hover:bg-sky-400/15 dark:border-sky-300/30"></span>
-              Plus
+              Post
               <svg
                 width="5"
                 height="5"

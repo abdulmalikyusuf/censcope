@@ -39,6 +39,7 @@ interface BlogFiltersProps {
 }
 
 export function BlogFilters({ tags, authors }: BlogFiltersProps) {
+  const [render, setRender] = React.useState(true); // This serves to clear the initialSelectedTags by rerendering the TagInput component, thereby re-initializing the initialSelectedTags props
   const [filtersQ, setFilters] = useQueryStates(
     {
       from: dateParser,
@@ -59,7 +60,10 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
   React.useEffect(() => {
     // Check if any filter is active
     const active =
-      filtersQ.tags.length > 0 || !!filtersQ.authorId || !!filtersQ.from||!!filtersQ.q;
+      filtersQ.tags.length > 0 ||
+      !!filtersQ.authorId ||
+      !!filtersQ.from ||
+      !!filtersQ.q;
     setIsFiltered(active);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersQ]);
@@ -79,11 +83,12 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
 
   const handleTagChange = React.useCallback(
     (tagIds: string[]) => {
+      if (!render) setRender(true);
       setFilters({
         tags: tagIds,
       });
     },
-    [setFilters]
+    [setFilters, render]
   );
 
   const clearFilters = () => {
@@ -94,6 +99,7 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
       q: null,
       tags: null, // Setting to null removes the param from URL
     });
+    setRender(false);
   };
 
   return (
@@ -112,7 +118,7 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
                 placeholder="Search for blog post title..."
                 type="text"
                 name="blog_title"
-                defaultValue={filtersQ.q??""}
+                defaultValue={filtersQ.q ?? ""}
                 onChange={(e) => debounced(e.target.value)}
               />
             </div>
@@ -186,6 +192,7 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
                 initialSelectedTags={tags.filter((tag) =>
                   filtersQ.tags.includes(tag.id)
                 )}
+                key={String(render)}
                 onChange={handleTagChange}
                 placeholder="Filter by tags..."
               />

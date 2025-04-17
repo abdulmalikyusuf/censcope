@@ -164,7 +164,7 @@ export function BlogPost({
 
             <Link
               href={`/admin/editor/${id}`}
-              className="font-semibold text-xl md:text-2xl text-gray-900 dark:text-white mb-4"
+              className="font-semibold text-xl md:text-2xl text-gray-900 dark:text-white mb-4 font-anton"
             >
               {title}
             </Link>
@@ -172,14 +172,14 @@ export function BlogPost({
             {tags && tags.length > 0 && (
               <div className="flex flex-wrap items-center gap-2 mb-6">
                 {tags.map((tag) => (
-                  <Badge key={tag.id} variant="secondary">
+                  <Badge key={tag.id} variant="secondary" className="capitalize">
                     {tag.name}
                   </Badge>
                 ))}
               </div>
             )}
 
-            <div className="prose prose-base dark:prose-invert max-w-none mt-4">
+            <div className="prose prose-base dark:prose-invert max-w-none mt-4 !font-inter">
               {generateSummary(content)}
             </div>
           </div>

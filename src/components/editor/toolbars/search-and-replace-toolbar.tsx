@@ -68,6 +68,7 @@ export function SearchAndReplaceToolbar() {
           <PopoverTrigger disabled={!editor} asChild>
             <Button
               variant="ghost"
+              type="button"
               size="sm"
               onClick={() => {
                 setOpen(!open);
@@ -112,6 +113,7 @@ export function SearchAndReplaceToolbar() {
               onClick={selectPrevious}
               size="icon"
               variant="ghost"
+              type="button"
               className="size-7"
             >
               <ArrowLeft className="size-4" />
@@ -121,6 +123,7 @@ export function SearchAndReplaceToolbar() {
               size="icon"
               className="size-7"
               variant="ghost"
+              type="button"
             >
               <ArrowRight className="h-4 w-4" />
             </Button>
@@ -132,6 +135,7 @@ export function SearchAndReplaceToolbar() {
               size="icon"
               className="size-7"
               variant="ghost"
+              type="button"
             >
               <Repeat className="h-4 w-4" />
             </Button>
@@ -142,6 +146,7 @@ export function SearchAndReplaceToolbar() {
               size="icon"
               className="size-7"
               variant="ghost"
+              type="button"
             >
               <X className="h-4 w-4" />
             </Button>
@@ -159,6 +164,7 @@ export function SearchAndReplaceToolbar() {
                 size="icon"
                 className="size-7 rounded-full"
                 variant="ghost"
+                type="button"
                 onClick={() => {
                   setReplacing(false);
                 }}

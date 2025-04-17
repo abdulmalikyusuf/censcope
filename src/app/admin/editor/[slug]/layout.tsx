@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <SidebarProvider className="">
       <AppSidebar />
-      <SidebarInset className="">{children}</SidebarInset>
+      <SidebarInset className="h-full">{children}</SidebarInset>
     </SidebarProvider>
   );
 }

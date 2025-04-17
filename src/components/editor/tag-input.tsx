@@ -67,19 +67,6 @@ export function TagInput({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[selectedTags])
 
-   React.useEffect(() => {
-    // Only update selectedTags if the new initialSelectedTags is different
-    // This prevents a loop caused by the onChange callback potentially updating the parent state
-    if (
-      initialSelectedTags &&
-      selectedTags &&
-      (initialSelectedTags.length !== selectedTags.length ||
-        !initialSelectedTags.every((tag, index) => selectedTags[index]?.id === tag.id))
-    ) {
-      // setSelectedTags(initialSelectedTags);
-    }
-  }, [initialSelectedTags, selectedTags]);
-
 
   const handleRemoveTag = React.useCallback((tagToRemove: SelectTag) => {
     setSelectedTags((prev) => {
@@ -206,7 +193,7 @@ export function TagInput({
           >
             <Tags className="mr-2 h-4 w-4 shrink-0" />
             {maxTags && selectedTags.length >= maxTags
-              ? `Reached max tags (${maxTags})`
+              ? `Reached maximum number of allowable tags (${maxTags})`
               : placeholder}
           </Button>
         </PopoverTrigger>
