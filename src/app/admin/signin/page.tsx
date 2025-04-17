@@ -52,7 +52,7 @@ export default function LoginPage() {
           alt="We work 10x faster than our compeititors and stay consistant. While
             they're bogged won with techincal debt, we're realeasing
             new features."
-          className="-z-1 absolute top-0 h-full w-full object-cover opacity-90"
+          className="-z-0 absolute top-0 h-full w-full object-cover opacity-90"
           src="https://images.unsplash.com/photo-1565301660306-29e08751cc53?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
         />
       </div>

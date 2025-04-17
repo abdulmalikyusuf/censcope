@@ -2,6 +2,7 @@
 
 import { useTransition, useState } from "react";
 import { useRouter } from "next/navigation";
+import dynamic from "next/dynamic";
 import {
   User,
   Calendar,
@@ -26,8 +27,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { deletePost, publishPost } from "@/lib/actions/post";
-import { formatDate, generateSummary } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import Link from "next/link";
+
+const PostContent = dynamic(() => import("./post-content"), { ssr: false });
 
 interface BlogPostProps {
   tags: {
@@ -79,7 +82,7 @@ export function BlogPost({
     setIsPublishing(true);
     const result = await publishPost(id, !published);
     if (result.published) setIsPublished(result.published);
-    setIsPublishing(true);
+    setIsPublishing(false);
   };
 
   return (
@@ -190,9 +193,7 @@ export function BlogPost({
               </div>
             )}
 
-            <div className="prose prose-base dark:prose-invert max-w-none mt-4 !font-inter">
-              {generateSummary(content)}
-            </div>
+            <PostContent content={content} />
           </div>
         </div>
       </div>

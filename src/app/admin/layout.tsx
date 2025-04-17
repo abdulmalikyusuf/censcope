@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
-import { Toaster } from 'sonner';
+import { Toaster } from "sonner";
 
 import { cn } from "@/lib/utils";
 
@@ -19,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={cn(fontSans.variable, fontSans.className)}>
-          <Toaster />
-          {children}
+    <div className={cn(fontSans.variable, fontSans.className, "w-full")}>
+      <Toaster />
+      {children}
     </div>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
-import NewsCard from "./card";
-import Button from "@/components/primary/button";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-export default function Newline() {
+import { NewsCard } from "@/app/(home)/our-newsline/(sections)/news/card";
+import Button from "@/components/primary/button";
+
+export default function Newline({ posts }: { posts: CombinedPostArray }) {
   return (
     <section id="newline" className="flex flex-col py-10 gap-10">
       <header className="w-full flex flex-col lg:flex-row px-5% lg:px-15%">
@@ -22,10 +23,17 @@ export default function Newline() {
         </div>
       </header>
 
-      <article className="w-full flex items-center justify-start gap-4 overflow-auto snap-x snap-mandatory hide-scrollbar">
+      <article className="w-full grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] auto-cols-[320px] grid-flow-col items-center justify-start gap-4 overflow-auto snap-x snap-mandatory hide-scrollbar">
         <div className="basis-80 flex-none snap-start hidden lg:flex" />
-        {Array.from({ length: 10 }).map((_, id) => (
-          <NewsCard key={id} />
+        {posts.map((post, id) => (
+          <NewsCard
+            key={id}
+            content={post.content}
+            slug={post.slug}
+            title={post.title}
+            updatedAt={post.updatedAt}
+            tags={post.tags}
+          />
         ))}
       </article>
 

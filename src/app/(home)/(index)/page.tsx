@@ -1,20 +1,40 @@
-"use client";
-import dynamic from "next/dynamic";
+import { db } from "@/db";
+import {
+  Banner,
+  Newline,
+  Support,
+  Actions,
+  Discover,
+  SocialMedia,
+} from "./(sections)/no-ssr";
 
-const Banner = dynamic(() => import("./(sections)/banner"), { ssr: false });
-const Actions = dynamic(() => import("./(sections)/actions"), { ssr: false });
-const Support = dynamic(() => import("./(sections)/support"), { ssr: false });
-const Newline = dynamic(() => import("./(sections)/newsline"), { ssr: false });
-const Discover = dynamic(() => import("./(sections)/discover"), { ssr: false });
-const SocialMedia = dynamic(() => import("./(sections)/socialmedia"), {
-  ssr: false,
-});
+export default async function Page() {
+  const posts = await db.query.posts.findMany({
+    orderBy: (posts, { desc }) => [desc(posts.updatedAt)],
+    columns: { title: true, slug: true, content: true, updatedAt: true },
+    with: {
+      tags: {
+        columns: {},
+        with: {
+          tag: {
+            columns: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
 
-export default function Page() {
+  const postsWithTags = posts.map((post) => ({
+    ...post,
+    tags: post.tags.map((p2t) => p2t.tag),
+  }));
   return (
     <>
       <Banner />
-      <Newline />
+      <Newline posts={postsWithTags} />
       <Support />
       <Actions />
       <Discover />

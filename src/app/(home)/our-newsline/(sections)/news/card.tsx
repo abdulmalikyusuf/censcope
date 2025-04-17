@@ -6,23 +6,13 @@ import { format } from "date-fns";
 import { getFirstImageSrc } from "@/lib/utils";
 import { supportImg } from "@/constants/media";
 
-interface NewsCardProps {
-  tags: {
-    name: string;
-    id: string;
-  }[];
-  title: string;
-  slug: string;
-  content: string|null;
-  updatedAt: Date;
-}
 export function NewsCard({
   title,
   tags,
   updatedAt,
   slug,
   content,
-}: NewsCardProps) {
+}: CombinedPost) {
   return (
     <Link
       href={`/newsline/${slug}`}
@@ -32,7 +22,11 @@ export function NewsCard({
         alt=""
         width={1000}
         height={1000}
-        src={!!content?getFirstImageSrc(content)??supportImg.src:supportImg.src}
+        src={
+          !!content
+            ? getFirstImageSrc(content) ?? supportImg.src
+            : supportImg.src
+        }
         className="absolute top-0 left-0 w-full h-full object-cover brightness-50 scale-125 rotate-6 transition-all duration-500 group-hover:scale-100 group-hover:rotate-0"
       />
       <span className="px-4 z-10 py-1 capitalize  text-white bg-teal-700">
@@ -58,7 +52,7 @@ export function NewsCard({
         </div>
 
         <h3 className="text-2xl text-white w-full">
-          {title.split(" ").map((word) => (
+          {title.split(" ").map((word: string) => (
             <span
               key={word}
               className="group-hover:bg-cyan-600 inline-block px-1"
