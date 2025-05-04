@@ -44,10 +44,10 @@ interface BlogPostProps {
   slug: string;
   content: string | null;
   published: boolean;
-  authorId: string;
+  authorId: string | null;
   author: {
     name: string | null;
-  };
+  } | null;
 }
 
 export function BlogPost({
@@ -95,7 +95,7 @@ export function BlogPost({
           </div>
           <div className="flex items-center gap-1.5 font-sans normal-case font-medium">
             <User className="h-4 w-4" />
-            <span>{author.name}</span>
+            <span>{author ? author.name : "Censcope Admin"}</span>
           </div>
           <div className="flex flex-wrap gap-2 justify-start mb-6">
             {" "}
@@ -168,7 +168,7 @@ export function BlogPost({
               </div>
               <div className="flex items-center gap-1.5 text-sm font-medium text-gray-600 dark:text-gray-400">
                 <User className="h-4 w-4" />
-                <span>{author.name}</span>
+                <span>{author ? author.name : "Censcope Admin"}</span>
               </div>
             </div>
 

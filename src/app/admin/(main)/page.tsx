@@ -13,20 +13,20 @@ import { BlogFilters } from "@/components/post/post-filters";
 import { posts, tags as tagsTable, users } from "@/db/schema";
 
 const searchParamsCache = createSearchParamsCache({
-q: parseAsString.withDefault(''),
-from: parseAsIsoDate,
+  q: parseAsString.withDefault(''),
+  from: parseAsIsoDate,
   to: parseAsIsoDate,
   authorId: parseAsString,
-tags:parseAsArrayOf(parseAsString).withDefault([])
+  tags: parseAsArrayOf(parseAsString).withDefault([])
 })
 
 
 async function PostsPage(props: {
   searchParams: SearchParams
-  }) {
-   const searchParams = await props.searchParams
-  const { authorId, tags:tagIds, from, to,q } = searchParamsCache.parse(searchParams)
-  
+}) {
+  const searchParams = await props.searchParams
+  const { authorId, tags: tagIds, from, to, q } = searchParamsCache.parse(searchParams)
+
   const whereConditions = [];
 
   if (authorId) {
@@ -67,7 +67,7 @@ async function PostsPage(props: {
 
   // If tagIds are provided, filter results manually
   if (tagIds?.length) {
-    results=results.filter((post) => {
+    results = results.filter((post) => {
       if (!post.tags.length) return false
       return post.tags.some((ptt) => tagIds.includes(ptt.tag.id))
     });
@@ -94,11 +94,11 @@ async function PostsPage(props: {
       </div>
       <div className="mt-10 relative before:absolute before:top-0 before:h-px before:w-[200vw] before:bg-gray-950/5 dark:before:bg-white/10 before:-left-[100vw] after:absolute after:bottom-0 after:h-px after:w-[200vw] after:bg-gray-950/5 dark:after:bg-white/10 after:-left-[100vw]">
         <p className="mx-2 text-lg">
-          All the latest Tailwind CSS news, straight from the team.
+          Stories that spark insight.
         </p>
       </div>
-          <BlogFilters tags={tags} authors={authors} />
-      
+      <BlogFilters tags={tags} authors={authors} />
+
       <div className="mt-12 mb-46 grid grid-cols-1 lg:grid-cols-[24rem_2.5rem_minmax(0,1fr)]">
         {finalPosts.map((post) => (
           <BlogPost

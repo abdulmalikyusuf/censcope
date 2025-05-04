@@ -1,91 +1,137 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 import { AvatarUpload } from './avatar-upload';
-import { createUser } from "@/lib/actions/users";
+import { createOrUpdateUser } from "@/lib/actions/users";
 import { SelectUser } from "@/db/schema";
 import { getSupabaseImagePath } from "@/lib/utils";
+import { createUserFormSchema, UserFormValues } from "@/lib/validations";
 
 
+export function UsersForm({ user }: { user: SelectUser | null }) {
+    const isUpdating = !!user;
+    const [image, setImage] = useState<string | undefined>(undefined); // Local preview state
+    const [pending, startTransition] = useTransition();
 
-const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
+    // Memoize the schema to avoid recreating it on every render
+    const UserFormSchema = useMemo(() => createUserFormSchema(isUpdating, false), [isUpdating]);
 
-export const UserFormSchema = z.object({
-    userId: z.string().optional(),
-    name: z
-        .string({
-            required_error: "Please enter the user's name",
-        }),
-    email: z
-        .string({
-            required_error: "Please enter the user's email",
-        }).email(),
-    password: z
-        .string({
-            required_error: "Please enter the user's password",
-        }).min(8, "Password should be a minimum of 8 characters"),
-    confirm_password: z
-        .string({
-            required_error: "Please enter the user's password",
-        }).min(8, "Password should be a minimum of 8 characters"),
-    avatar: z
-        .instanceof(File)
-        .refine(
-            (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-            "Only .jpg, .png, and .webp formats are supported."
-        )
-        .refine((file) => file.size <= MAX_FILE_SIZE, "Max file size is 5MB."),
-}).refine((data) => data.password === data.confirm_password, {
-    message: "Passwords do not match",
-    path: ['confirm_password'],
-});;
-
-
-function UsersForm({ user }: { user: SelectUser | null }) {
-    const [image, setImage] = useState<string | undefined>(undefined)
-    const [pending, setPending] = useState(false)
-    const form = useForm({
+    const form = useForm<UserFormValues>({
         resolver: zodResolver(UserFormSchema),
-        defaultValues: { name: user?.name ?? "", email: user?.email ?? "", userId: user?.id }
+        // Default values: Use user data if updating, otherwise empty/defaults.
+        // Ensure password fields are empty by default even on update forms.
+        defaultValues: {
+            name: user?.name ?? "",
+            email: user?.email ?? "",
+            userId: user?.id,
+            password: "", // Always start empty
+            confirm_password: "", // Always start empty
+            avatar: undefined, // Start with no file selected
+        }
     });
 
-    const watchedAvatar = form.watch('avatar'); // 'avatar' should match the name prop passed to AvatarUpload
+    // Watch the avatar field from react-hook-form to manage preview/remove logic
+    // const watchedAvatarFile = form.watch('avatar');
 
-    const onSubmit = async (values: z.infer<typeof UserFormSchema>) => {
-        setPending(true)
-        const formdata = new FormData();
+    // Effect to update local image preview when watchedAvatarFile changes
+    // This handles the preview *after* a file is selected via react-hook-form
+    // You might already handle this within AvatarUpload, adjust as needed.
+    // React.useEffect(() => {
+    //     if (watchedAvatarFile) {
+    //         const reader = new FileReader();
+    //         reader.onloadend = () => {
+    //             setImage(reader.result as string);
+    //         };
+    //         reader.readAsDataURL(watchedAvatarFile);
+    //     } else {
+    // If the file is removed via form.resetField or is initially undefined
+    //         if (!user?.avatar) { // Only clear preview if there's no existing avatar
+    //              setImage(undefined);
+    //         }
+    //     }
+    // }, [watchedAvatarFile, user?.avatar]);
 
-        if (values.userId) formdata.set("userId", values.userId);
-        formdata.set("name", values.name);
-        formdata.set("email", values.email);
-        formdata.set("password", values.password);
-        formdata.set("avatar", values.avatar);
 
-        const res = await createUser(formdata);
-        if (res.success) toast.info(res.message)
-        if (!res.success) toast.error(res.message)
-        console.log(res);
-        setPending(false)
+    const onSubmit = (values: UserFormValues) => {
+        startTransition(async () => {
+            const formdata = new FormData();
 
+            // Always include ID if updating
+            if (values.userId) {
+                formdata.set("userId", values.userId);
+            }
+
+            // Always send name and email
+            formdata.set("name", values.name);
+            formdata.set("email", values.email);
+
+            // Only send password if a new one was provided
+            if (values.password) {
+                formdata.set("password", values.password);
+            }
+
+            // Only send avatar if a new file was selected
+            if (values.avatar instanceof File) {
+                formdata.set("avatar", values.avatar);
+            } else if (!isUpdating && !values.avatar) {
+                // Handle case where avatar is required for create but somehow missing validation (should not happen with schema)
+                console.error("Avatar is required for creation.");
+                toast.error("Avatar is required.");
+                return;
+            }
+
+
+            // Ensure your backend action (createUser/saveUser) can handle
+            // optional password and avatar fields during an update.
+            const res = await createOrUpdateUser(formdata); // Use the appropriate action
+
+            if (res.success) {
+                toast.info(res.message || (isUpdating ? "User updated successfully!" : "User created successfully!"));
+                // Reset form: Clear fields for 'create', potentially keep existing data shown for 'update' (depends on desired UX)
+                if (!isUpdating) {
+                    form.reset(); // Clear form on successful creation
+                    setImage(undefined); // Clear preview
+                } else {
+                    // On update, reset password fields and the file input state, but keep name/email populated
+                    form.reset({
+                        ...values, // Keep current name/email
+                        password: "",
+                        confirm_password: "",
+                        avatar: undefined, // Reset file input state in RHF
+                    }, { keepValues: true, keepDirty: false, keepDefaultValues: false }); // Experiment with reset options if needed
+                    setImage(undefined); // Clear local preview if a new file was just uploaded
+                }
+
+            } else {
+                toast.error(res.message || "An error occurred.");
+            }
+            console.log("API Response:", res);
+        })
     };
+
+    // Determine current avatar source: local preview, existing user avatar, or null
+    const currentAvatarSrc = image // Use local preview if available (from handleImageChange in AvatarUpload)
+        ?? (user?.avatar ? getSupabaseImagePath(user.avatar) : null); // Otherwise use existing user avatar
+
+
     return (
-        <form className="" onSubmit={form.handleSubmit(onSubmit, err => console.error(err))}>
+        <form className="" onSubmit={form.handleSubmit(onSubmit, err => console.error("Form Validation Errors:", err))}>
             <div className="p-8 rounded-2xl border-x border-x-(--pattern-fg) bg-[image:repeating-linear-gradient(315deg,_var(--pattern-fg)_0,_var(--pattern-fg)_1px,_transparent_0,_transparent_50%)] bg-[size:10px_10px] bg-fixed [--pattern-fg:var(--color-black)]/5">
                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    {/* Name Input */}
                     <div className="sm:col-span-4">
                         <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900">
                             Name
                         </label>
                         <div className="mt-2">
                             <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">workcation.com/</div>
+                                <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">censcope.com/</div>
                                 <input
                                     id="name"
                                     type="text"
@@ -102,7 +148,7 @@ function UsersForm({ user }: { user: SelectUser | null }) {
                         </label>
                         <div className="mt-2">
                             <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
-                                <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">workcation.com/</div>
+                                <div className="shrink-0 select-none text-base text-gray-500 sm:text-sm/6">censcope.com/</div>
                                 <input
                                     id="email"
                                     type="email"
@@ -115,7 +161,7 @@ function UsersForm({ user }: { user: SelectUser | null }) {
                     </div>
                     <div className="sm:col-span-3">
                         <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                            Password
+                            {isUpdating ? "New Password (optional)" : "Password"}
                         </label>
                         <div className="mt-2">
                             <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -130,9 +176,11 @@ function UsersForm({ user }: { user: SelectUser | null }) {
                             {form.formState.errors.password && <p className="mt-1 text-sm text-red-600">{form.formState.errors.password.message?.toString()}</p>}
                         </div>
                     </div>
+
+                    {/* Confirm Password Input */}
                     <div className="sm:col-span-3">
                         <label htmlFor="confirm_password" className="block text-sm/6 font-medium text-gray-900">
-                            Confirm Password
+                            {isUpdating ? "Confirm New Password" : "Confirm Password"}
                         </label>
                         <div className="mt-2">
                             <div className="flex items-center rounded-md bg-white pl-3 outline outline-1 -outline-offset-1 outline-gray-300 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
@@ -149,45 +197,49 @@ function UsersForm({ user }: { user: SelectUser | null }) {
                         </div>
                     </div>
 
-                    {(image || user?.avatar) && (
+                    {/* Avatar Preview Section */}
+                    {currentAvatarSrc && ( // Show preview if local preview OR existing avatar exists
                         <div className="col-span-full">
-                            <label htmlFor="photo" className="block text-sm/6 font-medium text-gray-900">
-                                Photo
+                            <label className="block text-sm/6 font-medium text-gray-900">
+                                Current Photo
                             </label>
                             <div className="mt-2 flex items-center gap-x-3">
-                                <div className="size-12 rounded-full overflow-clip">
-                                    <Image width={48} height={48} src={image ?? getSupabaseImagePath(user?.avatar as string)} alt="" />
+                                <div className="size-12 rounded-full overflow-hidden bg-gray-200"> {/* Added bg for placeholder */}
+                                    <Image width={48} height={48} src={currentAvatarSrc} alt="Current Avatar" className="object-cover w-full h-full" />
                                 </div>
-                                {watchedAvatar &&
-                                    <button
-                                        type="button"
-                                        onClick={() => { setImage(undefined); form.resetField("avatar") }}
-                                        className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                    >
-                                        Remove
-                                    </button>
-                                }
+                                {/* Remove button could be added here if needed, but AvatarUpload handles changing */}
+                                {/* If you want an explicit remove button *for the existing* avatar, add logic here */}
                             </div>
                         </div>
                     )}
 
-                    <AvatarUpload control={form.control} name="avatar" handleImageChange={setImage} />
-                    {form.formState.errors.avatar && <p className="mt-1 text-sm text-red-600">{form.formState.errors.avatar.message?.toString()}</p>}
+                    {/* Avatar Upload Component */}
+                    <div className="col-span-full">
+                        <label htmlFor="file-upload" className="block text-sm/6 font-medium text-gray-900">
+                            {isUpdating ? "Change Photo (optional)" : "Photo"}
+                        </label>
+                        <AvatarUpload
+                            control={form.control}
+                            name="avatar"
+                            handleImageChange={setImage} // Pass setImage to update local preview
+                        />
+                        {/* Display validation errors for the avatar field */}
+                        {form.formState.errors.avatar && <p className="mt-1 text-sm text-red-600">{form.formState.errors.avatar.message?.toString()}</p>}
+                    </div>
 
                 </div>
+
+                {/* Submit Button */}
                 <div className="mt-6 flex items-center justify-end gap-x-6">
                     <button
                         type="submit"
-                        disabled={pending}
-                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        disabled={pending || !form.formState.isDirty} // Disable if pending or form hasn't changed
+                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        {pending ? `${user ? "Updating" : "Creating"}...` : `${user ? "Update User" : "Create User"}`}
-
+                        {pending ? `${isUpdating ? "Updating" : "Creating"}...` : `${isUpdating ? "Update User" : "Create User"}`}
                     </button>
                 </div>
             </div>
         </form>
     )
 }
-
-export default UsersForm

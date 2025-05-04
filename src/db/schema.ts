@@ -30,8 +30,7 @@ export const posts = pgTable("post", {
   content: text("content"),
   published: boolean("published").default(false).notNull(),
   authorId: varchar("author_id", { length: 255 })
-    .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "set null" }),
   ...timestamps,
 });
 
@@ -67,10 +66,10 @@ export const postsToTags = pgTable(
   {
     postId: text("post_id")
       .notNull()
-      .references(() => posts.id),
+      .references(() => posts.id, { onDelete: "cascade" }),
     tagId: text("tag_id")
       .notNull()
-      .references(() => tags.id),
+      .references(() => tags.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey(t.postId, t.tagId),

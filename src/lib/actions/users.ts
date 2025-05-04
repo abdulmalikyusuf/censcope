@@ -8,6 +8,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { createSupabaseAdmin } from "../supabase/server";
 import { eq } from "drizzle-orm";
+import { createUserFormSchema } from "@/lib/validations";
 
 const BUCKET_NAME = process.env.SUPABASE_BUCKET_NAME!;
 
@@ -16,29 +17,20 @@ if (!BUCKET_NAME) {
   throw new Error("SUPABASE_BUCKET_NAME environment variable is not defined");
 }
 
-// Define a schema for input validation using Zod
-const UserSchema = z.object({
-  userId: z.string().optional(),
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  // Add password complexity rules if desired, e.g., .min(8)
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  avatar: z
-    .instanceof(File, { message: "Avatar must be a file" })
-    // Add validation for file type and size if needed
-    .refine((file) => file.size > 0, "Avatar cannot be empty")
-    .optional(), // Make avatar optional if desired, or keep required
-});
-
 // Define a consistent return type for the action
 type ActionResult =
   | { success: true; message: string; userId?: string; email?: string } // Add relevant success data
   | { success: false; message: string; errors?: Record<string, string[]> }; // Include validation errors
 
-export async function createUser(formdata: FormData): Promise<ActionResult> {
+export async function createOrUpdateUser(
+  formdata: FormData
+): Promise<ActionResult> {
   // 1. Validate Input Data
   const rawFormData = Object.fromEntries(formdata.entries());
-  const validationResult = UserSchema.safeParse(rawFormData);
+  const userId = rawFormData["userId"] as string;
+  const validationResult = createUserFormSchema(!!userId, true).safeParse(
+    rawFormData
+  );
 
   if (!validationResult.success) {
     console.error("Validation Error:", validationResult.error.flatten());
@@ -49,7 +41,7 @@ export async function createUser(formdata: FormData): Promise<ActionResult> {
     };
   }
 
-  const { userId, name, email, password, avatar } = validationResult.data;
+  const { name, email, password, avatar } = validationResult.data;
   let avatarPath: string | undefined = undefined; // Store avatar path
   // Flag to track if it's an update operation
   const isUpdateOperation = !!userId;
@@ -187,11 +179,7 @@ export async function createUser(formdata: FormData): Promise<ActionResult> {
       // Consider cleanup logic if strict atomicity is required (complex).
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
-        password,
-        // You can add options like 'data' here if needed for Supabase Auth user metadata
-        // options: {
-        //  data: { full_name: name } // Example
-        // }
+        password: password!,
       });
 
       if (authError) {

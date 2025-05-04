@@ -1,14 +1,15 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { format } from "date-fns";
 import { and, eq } from "drizzle-orm";
 import readingTimeEstimate from "read-time-estimate";
+import { User } from "lucide-react";
 
 import { db } from "@/db";
 import { posts, users } from "@/db/schema";
 import TiptapRenderer from "@/components/editor/renderer";
 import { PostToc } from "@/components/editor/renderer/components/post-toc";
-import Link from "next/link";
 import { SharePostButton } from "@/components/post/share-post";
 import { CopyLinkButton } from "@/components/post/copy-link";
 
@@ -115,14 +116,18 @@ async function OurNewslineItemPage({
                 <div className="text-xs font-inter uppercase">/Authors</div>
                 <div className="flex lg:flex flex-col flex-wrap gap-4">
                   <div className="flex items-center">
-                    <Image
+                    {post.author ? <Image
                       alt={`${post.author}'s photo`}
                       width="40"
                       height="40"
                       className="border-green size-10 rounded-full border"
                       src="/_next/image?url=%2Fstatic%2Fimages%2Fteam%2Fabroshar.jpg&amp;w=96&amp;q=75"
-                    />
-                    <div className="ml-2">{post.author}</div>
+                    /> :
+                      <div className="border-2 flex items-center justify-center">
+                        <User className="size-6" />
+                      </div>
+                    }
+                    <div className="ml-2">{post.author ?? "Censcope Admin"}</div>
                   </div>
                 </div>
               </div>

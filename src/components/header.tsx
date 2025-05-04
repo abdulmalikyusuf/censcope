@@ -1,9 +1,10 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { LogOutIcon } from "lucide-react";
+import { signOut } from "next-auth/react";
 
 import { CreatePostButton } from "./create-post-button";
-import { signOut } from "@/lib/actions/auth";
 
 
 export function Header() {
@@ -79,16 +80,22 @@ export function Header() {
             </CreatePostButton>
           </div>
           <div >
-            <form action={signOut} className="">
-              <button
-                type="submit"
-                aria-label="Search"
-                className="grid place-items-center whitespace-nowrap"
-              >
-                <LogOutIcon className="size-4" />
-                <span className="">Log Out</span>
-              </button>
-            </form>
+            {/* <form
+          action={async () => {
+            'use server';
+            await signOut();
+          }}
+        > */}
+            <button
+              type="button"
+              aria-label="Search"
+              onClick={async () => await signOut({ redirectTo: "/admin/signin" })}
+              className="flex items-center flex-row-reverse gap-2 whitespace-nowrap"
+            >
+              <LogOutIcon className="size-4" />
+              <span className="">Log Out</span>
+            </button>
+            {/* </form> */}
           </div>
         </div>
       </div>

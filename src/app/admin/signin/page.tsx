@@ -22,7 +22,7 @@ export default function LoginPage() {
           <Suspense>
             <SigninForm />
           </Suspense>
-          <div className="py-12 text-center">
+          <div className="py-12 text-center hidden">
             <p className="whitespace-nowrap text-gray-600">
               Don&apos;t have an account?
               <Link
