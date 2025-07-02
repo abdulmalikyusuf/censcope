@@ -48,7 +48,7 @@ async function OurNewslineItemPage({
   return (
     <main>
       <div className="bg-[url('/noise-light.svg')] mt-28 relative">
-        <article className="max-w-content mx-auto grid grid-cols-4 gap-y-10 gap-x-4 px-4 md:grid-cols-8 2xl:grid-cols-12 items-start py-20">
+        <article className="max-w-content mx-auto grid grid-cols-4 gap-y-10 gap-x-4 px-4 lg:grid-cols-10 2xl:grid-cols-12 items-start py-20">
           <div className="lg:hidden col-span-full max-lg:order-1">
             <Link
               className="flex items-center gap-1 font-mono text-xs uppercase leading-none"
@@ -70,7 +70,7 @@ async function OurNewslineItemPage({
             </Link>
           </div>
           <PostToc />
-          <div className="max-lg:order-3 flex flex-col gap-12 rounded-2xl border bg-white p-8 2xl:col-start-4 2xl:col-span-6 lg:col-start-3 lg:col-span-4 col-span-full">
+          <div className="max-lg:order-3 flex flex-col gap-12 rounded-2xl border bg-white p-8 2xl:col-start-4 2xl:col-span-6 lg:col-start-3 lg:col-span-6 col-span-full">
             <header className="flex flex-col gap-6">
               <Link
                 className="lg:flex hidden items-center gap-1 font-mono text-xs uppercase leading-none"
@@ -110,24 +110,28 @@ async function OurNewslineItemPage({
           {/* <div className="my-16 lg:hidden col-span-full">
             <hr />
           </div> */}
-          <aside className="max-lg:order-2 flex flex-col lg:sticky top-8 lg:max-h-[calc(100vh-4rem)] gap-8 overflow-y-auto 2xl:col-start-10 2xl:col-span-3 lg:col-start-7 lg:col-span-2 col-span-full">
+          <aside className="max-lg:order-2 flex flex-col lg:sticky top-8 lg:max-h-[calc(100vh-4rem)] gap-8 overflow-y-auto 2xl:col-start-10 2xl:col-span-3 lg:col-start-9 lg:col-span-2 col-span-full">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-3 lg:order-1">
-                <div className="text-xs font-inter uppercase">/Authors</div>
+                <div className="text-xs font-inter uppercase">/Author</div>
                 <div className="flex lg:flex flex-col flex-wrap gap-4">
                   <div className="flex items-center">
-                    {post.author ? <Image
-                      alt={`${post.author}'s photo`}
-                      width="40"
-                      height="40"
-                      className="border-green size-10 rounded-full border"
-                      src="/_next/image?url=%2Fstatic%2Fimages%2Fteam%2Fabroshar.jpg&amp;w=96&amp;q=75"
-                    /> :
+                    {post.author ? (
+                      <Image
+                        alt={`${post.author}'s photo`}
+                        width="40"
+                        height="40"
+                        className="border-green size-10 rounded-full border"
+                        src="/_next/image?url=%2Fstatic%2Fimages%2Fteam%2Fabroshar.jpg&amp;w=96&amp;q=75"
+                      />
+                    ) : (
                       <div className="border-2 flex items-center justify-center">
                         <User className="size-6" />
                       </div>
-                    }
-                    <div className="ml-2">{post.author ?? "Censcope Admin"}</div>
+                    )}
+                    <div className="ml-2">
+                      {post.author ?? "Censcope Admin"}
+                    </div>
                   </div>
                 </div>
               </div>

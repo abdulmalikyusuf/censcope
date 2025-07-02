@@ -26,12 +26,12 @@ export const extensionKit = [
         class: "list-disc",
       },
     },
-    heading: {
-      levels: [1, 2, 3, 4, 5, 6],
-      HTMLAttributes: {
-        class: "tiptap-heading",
-      },
-    },
+    // heading: {
+    //   levels: [1, 2, 3, 4, 5, 6],
+    //   HTMLAttributes: {
+    //     class: "tiptap-heading",
+    //   },
+    // },
   }),
   TextAlign.configure({
     types: ["heading", "paragraph"],

@@ -198,7 +198,7 @@ function TiptapImage(props: NodeViewProps) {
         <NextImage
           ref={imageRef}
           src={node.attrs.src}
-          alt={node.attrs.alt}
+          alt={node.attrs.alt ?? ""}
           title={node.attrs.title}
           height={880}
           width={1024}

@@ -25,7 +25,7 @@ import { createTag } from "@/lib/actions/tag";
 import { SelectTag } from "@/db/schema";
 import { toast } from "sonner";
 
-interface TagInputProps {
+interface Props {
   availableTags: SelectTag[];
   initialSelectedTags?: SelectTag[];
   onChange: (selectedTags: string[]) => void;
@@ -39,8 +39,7 @@ export function TagInput({
   onChange,
   placeholder = "Select or create tags...",
   maxTags,
-}: TagInputProps) {
-  console.log(initialSelectedTags);
+}: Props) {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");

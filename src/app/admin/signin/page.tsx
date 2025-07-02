@@ -38,13 +38,10 @@ export default function LoginPage() {
       <div className="pointer-events-none relative hidden h-screen select-none bg-black md:block md:w-1/2">
         <div className="absolute bottom-0 z-10 px-8 text-white opacity-100">
           <p className="mb-8 text-3xl font-semibold leading-10">
-            We work 10x faster than our compeititors and stay consistant. While
-            they&apos;re bogged won with techincal debt, we&apos;re realeasing
-            new features.
+            The best and most beautiful things in the world cannot be seen or
+            even touched - they must be felt with the heart.
           </p>
-          <p className="mb-4 text-3xl font-semibold">John Elmond</p>
-          <p className="">Founder, Emogue</p>
-          <p className="mb-7 text-sm opacity-70">Web Design Agency</p>
+          <p className="mb-4 text-3xl font-semibold">Helen Keller</p>
         </div>
         <Image
           width={720}

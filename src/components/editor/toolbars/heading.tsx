@@ -24,7 +24,7 @@ const HEADING_LEVELS = [1, 2, 3, 4, 5, 6] as const;
 type Heading = "p" | `h${(typeof HEADING_LEVELS)[number]}`;
 
 const HeadingToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({}) => {
+  (props, ref) => {
     const { editor } = useToolbar();
 
     const current = useEditorState({
@@ -114,6 +114,10 @@ const HeadingToolbar = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 variant="ghost"
                 size="sm"
                 className="h-8 w-max font-normal"
+                ref={ref}
+                {...props}
+                data-active={!!current}
+                data-heading={current}
               >
                 {currentLabel}
                 <ChevronDown className="ml-2 h-4 w-4" />

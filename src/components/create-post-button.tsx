@@ -22,7 +22,7 @@ export const CreatePostButton = forwardRef<
 
   return (
     <button
-      onClick={async () => action()}
+      formAction={action}
       className={
         className ??
         "inline-flex items-center gap-x-2 rounded-md bg-black px-3.5 py-2.5 text-sm font-medium text-white shadow-sm"
