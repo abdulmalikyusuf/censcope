@@ -5,35 +5,38 @@ import { FaArrowRight } from "react-icons/fa";
 
 export default function Meaning() {
   return (
-    <section id="meaning" className="py-10 flex flex-col items-start gap-6">
-      <header className="w-full flex flex-col gap-6 px-5% lg:px-25%">
+    <section
+      id="meaning"
+      className="py-6 md:py-10 flex flex-col items-start gap-6"
+    >
+      <div className="w-full flex flex-col gap-2 px-5% lg:px-25%">
         <h3 className="text-lg lg:text-3xl">
-          Working at Première Urgence Internationale means…
+          What working at Center for Social Cohesion, Peace and Empowerment
+          (CENSCOPE) means
         </h3>
-
-        <div className="flex flex-col gap-2">
-          {Array.from({ length: 3 }).map((_, key) => (
-            <p key={key} className="flex gap-2 items-start">
-              <FaArrowRight size={22} className="mt-1 text-cyan-600" />
-              <span className="">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Explicabo laborum culpa at perferendis, excepturi dicta
-                distinctio nemo nostrum maiores quasi sapiente delectus
-                voluptate nam placeat necessitatibus quia. Amet, autem porro.
-              </span>
-            </p>
-          ))}
-        </div>
-
-        <p className="">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi tenetur
-          fugit omnis rerum, officiis placeat veniam. Fugiat veritatis sunt
-          doloribus fugit saepe nobis obcaecati, maiores dolor nam quae ex culpa
-          facilis, adipisci molestiae in rem reprehenderit, eveniet laboriosam
-          delectus ab rerum pariatur quidem impedit perspiciatis! Eum aliquid
-          odio nesciunt ipsum!
+        <p className="flex gap-2 items-start">
+          <FaArrowRight size={22} className="shrink-0 mt-1 text-cyan-600" />
+          <span className="">
+            Working with us is more than a partnership—it is a shared commitment
+            to humanity, dignity, and lasting change. We value collaboration
+            built on trust, respect, and transparency. Each relationship with
+            donors, partners, volunteers, and communities strengthens our
+            ability to respond effectively and innovatively to complex
+            challenges. To us, working together means honoring the voices and
+            experiences of those we serve, learning continuously, and holding
+            ourselves accountable to the highest standards of integrity.
+          </span>
         </p>
-      </header>
+        <p className="flex gap-2 items-start">
+          <FaArrowRight size={22} className="shrink-0 mt-1 text-cyan-600" />
+          <span className="">
+            It means building resilient communities through collective action,
+            empathy, and unwavering dedication to peace and empowerment.
+            Together, we turn challenges into opportunities and vision into
+            reality.
+          </span>
+        </p>
+      </div>
 
       <div className="w-full relative overflow-hidden py-20 px-5% lg:px-20%">
         <Image
@@ -43,7 +46,7 @@ export default function Meaning() {
           src={spiralImg}
           className="absolute top-0 left-0 w-full h-full object-cover opacity-10"
         />
-        
+
         <div className="flex flex-1 flex-col lg:flex-row items-center z-10 relative bg-white lg:items-stretch">
           <div className="w-72 min-h-96 relative">
             <Image

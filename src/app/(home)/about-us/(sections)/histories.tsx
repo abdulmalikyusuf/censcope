@@ -1,40 +1,39 @@
-export default function History() {
+import DonorsImage from "@/assets/images/donors.jpg";
+import Image from "next/image";
+
+export default function Donors() {
   return (
-    <section id="history" className="flex flex-col gap-20">
-      <header className="w-full flex flex-col items-start gap-6 px-20%">
-        <h3 className="text-xl lg:text-4xl">Our history</h3>
+    <section
+      id="donors"
+      className="padding-horizontal flex flex-col md:flex-row-reverse items-start md:items-center gap-6 md:gap-10"
+    >
+      <div className="w-full flex flex-col items-start gap-2 lg:text-lg">
+        <h3 className="text-xl lg:text-4xl">Our donors</h3>
 
-        <p className="text-lg font-titillium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi tenetur
-          fugit omnis rerum, officiis placeat veniam. Fugiat veritatis sunt
-          doloribus fugit saepe nobis obcaecati, maiores dolor nam quae ex culpa
-          facilis, adipisci molestiae in rem reprehenderit, eveniet laboriosam
-          delectus ab rerum pariatur quidem impedit perspiciatis! Eum aliquid
-          odio nesciunt ipsum!
+        <p className="font-titillium">
+          We extend our sincere gratitude to all organizations, partners, and
+          stakeholders whose tireless efforts and unwavering commitment continue
+          to support humanitarian, development, and peacebuilding initiatives
+          across the region. The acronyms listed in this document represent more
+          than just names; they stand for collective action, life saving
+          interventions, and impactful collaborations that have brought hope and
+          resilience to countless communities.
         </p>
-
-        <p className="text-lg font-titillium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi tenetur
-          fugit omnis rerum, officiis placeat veniam. Fugiat veritatis sunt
-          doloribus fugit saepe nobis obcaecati, maiores dolor nam quae ex culpa
-          facilis, adipisci molestiae in rem reprehenderit, eveniet laboriosam
-          delectus ab rerum pariatur quidem impedit perspiciatis! Eum aliquid
-          odio nesciunt ipsum!
+        <p className="font-titillium">
+          Your continued partnership, technical expertise, and resource
+          contributions are deeply valued. Together we remain committed to
+          fostering a safer, more inclusive, and empowered society.
         </p>
-
-        <p className="text-lg font-titillium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi tenetur
-          fugit omnis rerum, officiis placeat veniam. Fugiat veritatis sunt
-          delectus ab rerum pariatur quidem impedit perspiciatis! Eum aliquid
-          odio nesciunt ipsum!
-        </p>
-
-        <p className="text-lg font-titillium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi tenetur
-          fugit omnis rerum, officiis placeat veniam. Fugiat veritatis sunt
-          doloribus fugit saepe nobis obcaecati, maiores dolor nam quae ex culpa
-        </p>
-      </header>
+      </div>
+      <div className="">
+        <Image
+          src={DonorsImage.src}
+          alt=""
+          width={1000}
+          height={1000}
+          className="w-full object-contain"
+        />
+      </div>
     </section>
   );
 }

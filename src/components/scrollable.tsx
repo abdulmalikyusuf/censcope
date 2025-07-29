@@ -55,12 +55,12 @@ export default function Scrollable(properties: ScrollableType) {
 
   return (
     <>
-      <header className="w-full z-50 bg-white shadow-md sticky top-[5.5rem] lg:top-28">
+      <header className="w-full z-50 bg-white shadow-md sticky top-[5.5rem] lg:top-24">
         <div className="hidden lg:flex gap-4 py-5 px-10% items-center justify-evenly">
           {properties.sections.map((section) => (
             <button
               key={section.id}
-              className={`duration-300 transition-all ${
+              className={`duration-300 transition-all !font-inter ${
                 activeSection === section.id ? "text-cyan-600" : "text-gray-500"
               }`}
               onClick={() => {
@@ -79,7 +79,10 @@ export default function Scrollable(properties: ScrollableType) {
         />
       </header>
 
-      <div ref={ref} className="w-full flex flex-col gap-10 overflow-x-hidden">
+      <div
+        ref={ref}
+        className="flex flex-col gap-12 md:gap-16 lg:gap-20 overflow-x-hidden"
+      >
         {properties.sections.map((section) => (
           <section.component key={section.id} />
         ))}

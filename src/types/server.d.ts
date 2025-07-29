@@ -3,6 +3,7 @@ interface SupportType {
   bgColor: string;
   buttonText: string;
   description: string;
+  href: string;
   titleHighlight: string;
 }
 

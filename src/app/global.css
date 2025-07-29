@@ -194,3 +194,70 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .heading-1 {
+    @apply text-[80px] leading-[84px] tracking-[-3px] font-medium;
+  }
+  .heading-2 {
+    @apply text-7xl leading-[76px] tracking-[-2px] font-medium;
+  }
+  .heading-3 {
+    @apply text-[54px] leading-[58px] tracking-[-1px] font-medium;
+  }
+  .heading-4 {
+    @apply text-[40px] leading-[44px] tracking-[-0.4px] font-medium;
+  }
+  .heading-5 {
+    @apply text-[34px] leading-[38px] tracking-[-0.6px] font-medium;
+  }
+  .heading-6 {
+    @apply text-[28px] leading-[34px] tracking-[-0.6px] font-medium;
+  }
+  .heading-7 {
+    @apply text-[20px] leading-[28px] font-medium;
+  }
+  .fs-26 {
+    @apply text-[26px] leading-10;
+  }
+  .fs-22 {
+    @apply text-[22px] leading-[34px];
+  }
+  .fs-20 {
+    @apply text-xl leading-8;
+  }
+  .fs-18 {
+    @apply text-lg leading-[30px];
+  }
+  .fs-16 {
+    @apply text-base leading-[26px];
+  }
+  .fs-14 {
+    @apply text-sm leading-[22px];
+  }
+  .fs-12 {
+    @apply text-xs leading-5;
+  }
+  .button-xl {
+    @apply text-[26px] leading-[38px] font-medium;
+  }
+  .button-lg {
+    @apply text-[22px] leading-[34px] font-medium;
+  }
+  .button-md {
+    @apply text-lg leading-8 font-medium;
+  }
+  .button-sm {
+    @apply text-base leading-[28px] font-medium;
+  }
+  .button-xs {
+    @apply text-sm leading-6 font-medium;
+  }
+
+  .padding-vertical {
+    @apply pt-10 md:pt-12 xl:pt-20 pb-12 md:pb-20 xl:pb-40;
+  }
+  .padding-horizontal {
+    @apply px-4% md:px-6% xl:px-10%;
+  }
+}

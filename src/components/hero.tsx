@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 export default function Hero(properties: HeroProps) {
   const links = [{ label: "home", href: "#" }];
@@ -9,25 +8,14 @@ export default function Hero(properties: HeroProps) {
     <section
       id="hero"
       style={{ backgroundImage: `url(${properties.image})` }}
-      className="flex flex-col gap-60 items-center mt-28 justify-center bg-gray-200 pt-20 pb-40 px-20% bg-center bg-cover"
+      className="flex flex-col gap-10 lg:gap-20 items-end justify-center bg-gray-200 max-md:mt-[88px] padding bg-center bg-cover aspect-[3/2] lg:aspect-[4/3] xl:max-h-[720px]"
     >
-      <header className="flex gap-2 self-start text-xs bg-white p-1 capitalize">
-        {links.map((item, index) => (
-          <React.Fragment key={item.label}>
-            <Link href={item.href} className="underline invalid:bg-red-600">
-              {item.label}
-            </Link>
-            {index < links.length - 1 && <span>/</span>}
-          </React.Fragment>
-        ))}
-      </header>
-
-      <div className="flex flex-col items-center gap-10 w-4/5 mx-auto">
-        <h2 className="capitalize text-4xl text-cyan-600">
+      <div className="flex flex-col items-center gap-6 lg:gap-10 w-4/5 mx-auto">
+        <h2 className="capitalize heading-6 md:heading-4 lg:heading-3 text-cyan-600">
           {properties.title}
         </h2>
 
-        <p className="w-full p-10 text-lg bg-white text-center">
+        <p className="w-full p-4 lg:p-6 md:text-lg bg-white text-center">
           {properties.description}
         </p>
       </div>

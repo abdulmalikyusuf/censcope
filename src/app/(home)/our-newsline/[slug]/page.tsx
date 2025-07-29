@@ -43,7 +43,13 @@ async function OurNewslineItemPage({
     // imageTime, //  0.2
     // otherLanguageTimeCharacters, // 6
     // otherLanguageTime, // 0.012
-  } = readingTimeEstimate(post.content!, 275, 12, 500, ["img", "Image"]);
+  } = readingTimeEstimate(
+    post.content ? post.content : "No content yet",
+    275,
+    12,
+    500,
+    ["img", "Image"]
+  );
 
   return (
     <main>

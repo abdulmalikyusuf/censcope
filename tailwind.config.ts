@@ -83,7 +83,7 @@ export default {
         "fill-24": "repeat(auto-fill, minmax(24em, 1fr))",
       },
       backgroundImage: {
-        logo: "url('/logo.png')",
+        logo: "url('/LOGOJ2.png')",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -91,7 +91,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        dark:"hsl(var(--dark))",
+        dark: "hsl(var(--dark))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

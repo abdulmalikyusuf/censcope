@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import Button from "@/components/primary/button";
+
 import { spiralImg, supportImg } from "@/constants/media";
 
 export default function Reason() {
@@ -13,12 +13,12 @@ export default function Reason() {
   return (
     <section
       id="reason"
-      className="py-20 flex flex-col items-center gap-20 bg-cyan-100/30"
+      className="flex flex-col items-center gap-8 lg:gap-12 bg-cyan-100/30 padding-horizontal"
     >
-      <header className="w-full flex flex-col items-center justify-center gap-10  px-10% lg:px-25%">
-        <h3 className="text-xl lg:text-4xl">Our commitments</h3>
+      <header className="flex flex-col items-center justify-center gap-6 lg:gap-10">
+        <h3 className="text-xl md:text-3xl lg:text-4xl">Our commitments</h3>
 
-        <p className="text-center">
+        <p className="text-center lg:text-lg">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus
           provident hic cumque dolorum vitae fugiat consequuntur delectus
           deleniti odit, distinctio magni, doloremque aliquid numquam architecto
@@ -28,34 +28,24 @@ export default function Reason() {
         </p>
       </header>
 
-      <div className="w-full gap-10 flex flex-wrap items-center justify-center px-10% lg:px-25%">
-        <Image
-          alt=""
-          width={1000}
-          height={1000}
-          src={supportImg.src}
-          className="w-80 basis-80 flex flex-1 flex-col p-10 object-cover aspect-video"
-        />
+      <div className="flex flex-col gap-4 lg:gap-6 items-start max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-screen-md w-full mx-auto">
+        {Array.from(titles).map((title) => (
+          <React.Fragment key={title}>
+            <h4 className="text-cyan-600 font-titillium text-lg md:text-xl lg:text-2xl relative">
+              {title}
+            </h4>
 
-        <div className="basis-80 flex flex-1 flex-col gap-6 items-start">
-          {Array.from(titles).map((title) => (
-            <React.Fragment key={title}>
-              <h4 className="text-cyan-600 font-titillium text-4xl relative">
-                {title}
-              </h4>
-
-              <p className="">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos
-                non pariatur necessitatibus natus consectetur consequuntur.
-                Inventore, beatae repellat! Cum itaque voluptatibus error sed
-                accusantium vitae cupiditate accusamus dolor nisi dicta!
-              </p>
-            </React.Fragment>
-          ))}
-        </div>
+            <p className="text-sm lg:text-base">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos non
+              pariatur necessitatibus natus consectetur consequuntur. Inventore,
+              beatae repellat! Cum itaque voluptatibus error sed accusantium
+              vitae cupiditate accusamus dolor nisi dicta!
+            </p>
+          </React.Fragment>
+        ))}
       </div>
 
-      <div className="w-full relative overflow-hidden py-20 px-5% lg:px-20%">
+      <div className="w-full relative overflow-hidden px-4 md:px-6 lg:px-10 py-8 md:py-10 lg:py-12">
         <Image
           alt=""
           width={1000}
@@ -64,40 +54,32 @@ export default function Reason() {
           className="absolute top-0 left-0 w-full h-full object-cover opacity-10"
         />
 
-        <div className="flex flex-1 flex-col lg:flex-row items-center z-10 relative bg-white lg:items-stretch">
-          <div className="w-72 min-h-96 relative">
+        <div className="w-fit flex flex-col md:flex-row items-center z-10 relative bg-white lg:items-stretch max-w-[90%] md:max-w-xl lg:max-w-2xl h-64 sm:h-72 md:h-80 lg:h-96">
+          <div className="aspect-[2/3]">
             <Image
               alt=""
               width={1000}
               height={1000}
               src={supportImg}
-              className="w-full h-full top-0 left-0 absolute object-cover bg-gray-50"
+              className="w-full h-full object-cover bg-gray-50"
             />
           </div>
 
-          <div className="flex flex-1 flex-col p-10 lg:py-20 w-full bg-white min-h-96 gap-2 items-start">
-            <h4 className="text-cyan-600 font-cavet text-3xl lg:text-5xl">
+          <div className="flex flex-col px-6 md:px-8 lg:px-10 py-12 lg:py-16 w-full bg-white gap-2 items-start">
+            <h4 className="text-cyan-600 font-cavet text-lg md:text-xl lg:text-2xl">
               Christelle André
             </h4>
-            <span className="text-sm">
+            <span className="lg:text-lg">
               Fundraising Officer © Première Urgence Internationale
             </span>
 
-            <blockquote className="lg:w-5/6 text-justify font-anton my-4 text-xl">
+            <blockquote className="text-justify mt-4 lg:text-base">
               Your donations guarantee Première Urgence Internationale&#39;s
               freedom of action. Every year, your support enables us to have a
               positive impact on the lives of millions of people in crisis
               zones, including “forgotten” crises that receive little attention
               from the media or institutional donors.
             </blockquote>
-
-            <Button
-              withIcon
-              withShadow
-              title="Our accounts"
-              shadowClassName="bg-cyan-600"
-              containerClassName="text-cyan-600 hover:text-white border-2 border-current"
-            />
           </div>
         </div>
       </div>

@@ -1,24 +1,22 @@
 import { supportImg } from "@/constants/media";
 import Image from "next/image";
 import React from "react";
-import { FaArrowRight } from "react-icons/fa";
 
 export default function Commit() {
   return (
     <section
       id="commit"
-      className="py-20 px-10% lg:px-15% flex flex-col items-center gap-20 bg-cyan-100/30"
+      className="flex flex-col items-center gap-6 lg:gap-10 bg-cyan-100/30 padding-vertical padding-horizontal"
     >
-      <header className="w-full flex flex-col items-center justify-center gap-10 px-20%">
-        <h3 className="text-xl lg:text-4xl">Our commitments</h3>
+      <header className="w-full flex flex-col items-center justify-center gap-4 md:gap-6 pt-8 lg:pt-12">
+        <h3 className="text-xl md:text-2xl lg:text-4xl">Our commitments</h3>
 
         <p className="text-center">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus
-          provident hic cumque dolorum vitae fugiat consequuntur delectus
-          deleniti odit, distinctio magni, doloremque aliquid numquam architecto
-          natus error incidunt! Illo, consequuntur! Lorem ipsum dolor sit amet
-          consectetur adipisicing elit. In, saepe cumque necessitatibus quas
-          maxime quibusdam voluptates. Accusantium facere reprehenderit ex.
+          At CENSCOPE, our commitment to vulnerable communities is rooted in
+          dignity, inclusion, and resilience. We supported 105 survivors of
+          explosive ordnance with medical care, rehabilitation, and livelihood
+          assistance. Through community education and advocacy, we promoted
+          disability inclusion and safer environments.
         </p>
       </header>
 
@@ -28,35 +26,19 @@ export default function Commit() {
           width={1000}
           height={1000}
           src={supportImg.src}
-          className="w-80 basis-80 flex flex-1 flex-col p-10 object-cover aspect-video"
+          className="w-80 basis-80 flex flex-1 flex-col object-cover"
         />
 
-        <div className="basis-80 flex flex-1 flex-col gap-6 items-start">
-          <h4 className="text-cyan-600 font-titillium text-4xl relative">
-            our values
-          </h4>
-
-          <p className="">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusamus
-            omnis laboriosam blanditiis error molestias exercitationem pariatur
-            rem animi delectus commodi.
+        <div className="basis-80 flex flex-1 flex-col gap-2 items-start">
+          <p className="lg:text-lg">
+            Our engagement reached nine Local Government Areas, with 130
+            advocacy visits and 10 coordination meetings. Stories like that of
+            Mala Abuna, who became an advocate after resisting risk education,
+            inspire our work. Media partnerships helped us reach over 1.7
+            million people with life saving messages. We remain steadfast in
+            building safer, more inclusive communities where every voice is
+            heard and valued.
           </p>
-
-          {Array.from({ length: 5 }).map((_, key) => (
-            <React.Fragment key={key}>
-              <h5 className="flex items-center gap-2">
-                <FaArrowRight className="text-cyan-600" />
-                Lorem ipsum dolor sit.
-              </h5>
-
-              <p className="">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos
-                non pariatur necessitatibus natus consectetur consequuntur.
-                Inventore, beatae repellat! Cum itaque voluptatibus error sed
-                accusantium vitae cupiditate accusamus dolor nisi dicta!
-              </p>
-            </React.Fragment>
-          ))}
         </div>
       </div>
     </section>

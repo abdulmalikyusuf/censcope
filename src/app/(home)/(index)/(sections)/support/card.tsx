@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaArrowRight } from "react-icons/fa";
 
 export default function SupportCard(properties: SupportCardProps) {
@@ -6,21 +7,22 @@ export default function SupportCard(properties: SupportCardProps) {
       style={{
         transitionDelay: `${properties.visible ? properties.delay : 0}ms`,
       }}
-      className={`basis-80 flex items-center justify-center flex-none aspect-square ${
+      className={`flex items-center justify-center flex-none aspect-square ${
         properties.support.bgColor
-      } bg-opacity-90 hover:bg-opacity-100 md:odd:mb-20 md:even:mt-20 relative group transition-all duration-500 ${
+      } md:odd:mb-16 md:even:mt-16 relative group transition-all duration-500 ${
         properties.visible
           ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-20"
+          : "opacity-0 translate-y-16"
       }`}
     >
-      <span
-        className={`absolute h-full w-20 translate-y-6  bg-inherit group-hover:brightness-110 transition-all before:h-full before:w-full before:bg-inherit before:absolute before:-left-full before:rotate-[15deg] after:h-4/5 after:w-full after:bg-inherit after:absolute after:left-full after:top-4 ${
+      {/* <span
+        className={`absolute h-full w-20 translate-y-6 bg-inherit transition-all before:h-full before:w-full before:bg-inherit before:absolute before:-left-full before:rotate-[15deg] after:h-4/5 after:w-full after:bg-inherit after:absolute after:left-full after:top-4 ${
           properties.index % 2 && "rotate-45"
         }`}
-      />
+      /> */}
+      <span className="hidden lg:block absolute -bottom-6 w-40 h-40 bg-inherit rotate-45 -z-10" />
 
-      <div className="z-10 flex flex-col gap-4 text-white py-10 px-10% justify-start h-full">
+      <div className="z-10 flex flex-col gap-2 lg:gap-4 text-white p-6 lg:p-10 justify-start">
         <h3 className="text-3xl first-letter:capitalize">
           {properties.support.title}{" "}
           <span className="md:text-5xl">
@@ -31,12 +33,12 @@ export default function SupportCard(properties: SupportCardProps) {
           {properties.support.description}
         </p>
 
-        <button className="mt-4 ">
+        <Link href={properties.support.href} className="mt-2">
           <span className="gap-2 flex items-center  text-white first-letter:capitalize">
             {properties.support.buttonText}{" "}
             <FaArrowRight className=" transition-all group-hover:ml-2 group-hover:scale-110" />
           </span>
-        </button>
+        </Link>
       </div>
     </div>
   );

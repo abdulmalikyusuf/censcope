@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 import { socialLinks } from "@/constants/data";
 import { aboutUsImg } from "@/constants/media";
@@ -13,16 +12,6 @@ export default function Banner() {
         src={aboutUsImg.src}
         className="absolute top-0 left-0 w-full h-full object-cover brightness-75"
       />
-
-      <header className="z-10 flex gap-2 self-start text-xs bg-white p-1 capitalize">
-        <Link href="/" className="underline">
-          home
-        </Link>
-
-        <span>/</span>
-
-        <Link href="/our-newsline">news</Link>
-      </header>
 
       <div className="z-10 flex flex-col items-center gap-10 w-full lg:w-4/5 mx-auto">
         <h2 className="capitalize text-4xl text-cyan-600">News</h2>

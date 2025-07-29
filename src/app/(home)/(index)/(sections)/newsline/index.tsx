@@ -8,7 +8,7 @@ import Button from "@/components/primary/button";
 import { usePrevNextButtons } from "@/hooks/use-embla-buttons";
 
 export default function Newline({ posts }: { posts: CombinedPostArray }) {
-  const router = useRouter()
+  const router = useRouter();
   const [emblaRef, emblaApi] = useEmblaCarousel();
   const {
     prevBtnDisabled,
@@ -20,8 +20,10 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
     <section id="newline" className="flex flex-col py-10 gap-10">
       <header className="w-full flex flex-col lg:flex-row px-5% lg:px-15%">
         <div className="flex flex-1 flex-col gap-2 items-start">
-          <h2 className="text-5xl first-letter:capitalize">our latest news</h2>
-          <p className="text-md">
+          <h2 className="heading-5 md:heading-3 first-letter:capitalize">
+            our latest news
+          </h2>
+          <p className="md:text-lg">
             Find out about our
             <span className="text-lg text-cyan-600"> field actions </span>
             through our reports, news, events,…
@@ -48,7 +50,7 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
         </div>
       </header>
       <div className="overflow-hidden" ref={emblaRef}>
-        <article className="w-full grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] auto-cols-[320px] grid-flow-col items-center justify-start gap-4 snap-x snap-mandatory hide-scrollbar">
+        <article className="w-full pl-4 md:pl-6 lg:pl-10 grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] auto-cols-[320px] grid-flow-col items-center justify-start gap-4 snap-x snap-mandatory hide-scrollbar">
           <div className="basis-80 flex-none snap-start hidden lg:flex" />
           {posts.map((post, id) => (
             <NewsCard
@@ -61,7 +63,6 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
             />
           ))}
         </article>
-
       </div>
 
       <Button

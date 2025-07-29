@@ -8,3 +8,4 @@ export { default as spiralImg } from "../assets/images/spiral-pattern.jpg";
 export { default as aboutBannerImg } from "../assets/images/about-us-banner.png";
 export { default as homeSliderBackImg } from "../assets/images/home-slider-back.jpg";
 export { default as homeSliderFrontImg } from "../assets/images/home-slider-front.png";
+export { default as joinUsSliderFrontImg } from "../assets/images/MSME 2.jpg";

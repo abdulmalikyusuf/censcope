@@ -12,7 +12,7 @@ export default function Support() {
     <section
       ref={ref}
       id="support"
-      className="w-full min-h-screen flex flex-col relative"
+      className="w-full flex flex-col relative py-14 lg:py-16 xl:py-20 px-10% lg:px-16"
     >
       <Image
         alt=""
@@ -26,9 +26,9 @@ export default function Support() {
         }`}
       />
 
-      <div className="w-full h-full z-10 flex flex-col gap-20 items-center lg:items-start justify-between p-10% pb-5% lg:px-15%">
+      <div className="w-full h-full z-10 flex flex-col gap-16 items-center lg:items-start justify-between text-white">
         <header
-          className={`flex flex-col gap-6 ${
+          className={`flex flex-col gap-4 ${
             entryData?.isIntersecting
               ? "translate-y-0 opacity-100"
               : "translate-y-20 opacity-0"
@@ -37,13 +37,13 @@ export default function Support() {
           <h2 className="text-2xl md:text-5xl first-letter:capitalize">
             support us
           </h2>
-          <p className="text-md md:text-xl md:w-80 font-bold">
+          <p className="text-md md:text-xl md:w-96 font-medium">
             It is thanks to your commitment that we can carry out our
             humanitarian missions.
           </p>
         </header>
 
-        <div className="w-full flex flex-wrap items-center justify-evenly gap-10">
+        <div className="w-full flex flex-wrap items-center justify-evenly gap-8">
           {supports.map((card, index) => (
             <SupportCard
               key={index}

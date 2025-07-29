@@ -9,7 +9,7 @@ export default function NewsCard() {
   return (
     <Link
       href={`/newsline/100`}
-      className="basis-80 group gap-2 aspect-[3/4.5] bg-gray-600 flex flex-none flex-col items-start justify-between p-8 snap-center lg:snap-start relative overflow-hidden"
+      className="basis-80 group gap-2 aspect-[] md:max-h-96 bg-gray-600 flex flex-none flex-col items-start justify-between p-8 snap-center lg:snap-start relative overflow-hidden"
     >
       <Image
         alt=""
