@@ -1,15 +1,15 @@
 import Image from "next/image";
 import { socialLinks } from "@/constants/data";
-import { aboutUsImg } from "@/constants/media";
+import OurNewslineImage from "../../../../assets/images/our-newline.jpg";
 
 export default function Banner() {
   return (
-    <section className="flex flex-col gap-20 items-center mt-28 justify-center bg-gray-200 pt-20 pb-10 px-5% lg:px-20% bg-center bg-cover overflow-hidden">
+    <section className="flex flex-col gap-20 items-center justify-center bg-gray-200 pt-20 pb-10 px-5% lg:px-20% bg-cover bg-top overflow-hidden lg:h-screen lg:max-h-[720px]">
       <Image
         alt=""
-        width={1000}
-        height={1000}
-        src={aboutUsImg.src}
+        width={1920}
+        height={900}
+        src={OurNewslineImage}
         className="absolute top-0 left-0 w-full h-full object-cover brightness-75"
       />
 

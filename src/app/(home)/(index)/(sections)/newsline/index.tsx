@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import useEmblaCarousel from "embla-carousel-react";
 
-import { NewsCard } from "@/app/(home)/our-newsline/(sections)/news/card";
+import { NewsCard } from "@/components/post/card";
 import Button from "@/components/primary/button";
 import { usePrevNextButtons } from "@/hooks/use-embla-buttons";
 

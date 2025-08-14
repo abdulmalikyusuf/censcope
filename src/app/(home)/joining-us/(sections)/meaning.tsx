@@ -1,9 +1,10 @@
 import Button from "@/components/primary/button";
-import { spiralImg, supportImg } from "@/constants/media";
+import PhotoToUse from "../../../../assets/images/MSME 2.jpg";
+import { spiralImg } from "@/constants/media";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 
-export default function Meaning() {
+export function Meaning() {
   return (
     <section
       id="meaning"
@@ -53,7 +54,7 @@ export default function Meaning() {
               alt=""
               width={1000}
               height={1000}
-              src={supportImg}
+              src={PhotoToUse}
               className="w-full h-full top-0 left-0 absolute object-cover bg-gray-50"
             />
           </div>

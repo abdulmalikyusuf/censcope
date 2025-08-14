@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { spiralImg } from "@/constants/media";
 import { FaArrowRight } from "react-icons/fa";
 
-export default function Account() {
+import { spiralImg } from "@/constants/media";
+
+export function OurImpact() {
   const infos = [
     {
       label: "47,000+",
@@ -28,7 +29,7 @@ export default function Account() {
 
   return (
     <section
-      id="section-4"
+      id="our-impact"
       className="padding-vertical padding-horizontal relative"
     >
       <Image

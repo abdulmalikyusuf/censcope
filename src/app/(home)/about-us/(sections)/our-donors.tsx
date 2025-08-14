@@ -1,10 +1,10 @@
 import DonorsImage from "@/assets/images/donors.jpg";
 import Image from "next/image";
 
-export default function Donors() {
+export function OurDonors() {
   return (
     <section
-      id="donors"
+      id="our-donors"
       className="padding-horizontal flex flex-col md:flex-row-reverse items-start md:items-center gap-6 md:gap-10"
     >
       <div className="w-full flex flex-col items-start gap-2 lg:text-lg">

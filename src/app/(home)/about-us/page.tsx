@@ -1,19 +1,19 @@
 "use client";
-import Hero from "@/components/hero";
+import { Hero } from "@/components/hero";
 import Scrollable from "@/components/scrollable";
-import { aboutBannerImg } from "@/constants/media";
+import aboutBannerImg from "../../../assets/images/about-us-bg.jpg";
 
-import Commit from "./(sections)/commits";
-import Account from "./(sections)/accounts";
-import History from "./(sections)/histories";
-import Identity from "./(sections)/identities";
+import { OurCommitment } from "./(sections)/our-commitment";
+import { OurImpact } from "./(sections)/our-impact";
+import { OurDonors } from "./(sections)/our-donors";
+import { WhoWeAre } from "./(sections)/who-we-are";
 
 export default function Page() {
   const sections = [
-    { label: "Who we are", id: "who-we-are", component: Identity },
-    { label: "Our donors", id: "donors", component: History },
-    { label: "Our commitment", id: "commit", component: Commit },
-    { label: "Our impact", id: "section-4", component: Account },
+    { label: "Who we are", id: "who-we-are", component: WhoWeAre },
+    { label: "Our donors", id: "our-donors", component: OurDonors },
+    { label: "Our commitment", id: "our-commitment", component: OurCommitment },
+    { label: "Our impact", id: "our-impact", component: OurImpact },
   ];
 
   return (

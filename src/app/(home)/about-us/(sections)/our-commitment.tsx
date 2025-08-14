@@ -1,11 +1,12 @@
-import { supportImg } from "@/constants/media";
 import Image from "next/image";
 import React from "react";
 
-export default function Commit() {
+import OurCommitmentImage from "src/assets/images/our-commitment.jpg";
+
+export function OurCommitment() {
   return (
     <section
-      id="commit"
+      id="our-commitment"
       className="flex flex-col items-center gap-6 lg:gap-10 bg-cyan-100/30 padding-vertical padding-horizontal"
     >
       <header className="w-full flex flex-col items-center justify-center gap-4 md:gap-6 pt-8 lg:pt-12">
@@ -23,9 +24,9 @@ export default function Commit() {
       <div className="w-full gap-10 flex flex-wrap items-center justify-center">
         <Image
           alt=""
-          width={1000}
-          height={1000}
-          src={supportImg.src}
+          width={1920}
+          height={900}
+          src={OurCommitmentImage}
           className="w-80 basis-80 flex flex-1 flex-col object-cover"
         />
 

@@ -1,7 +1,9 @@
 import Image from "next/image";
-import { aboutUsImg, spiralImg } from "@/constants/media";
 
-export default function Identity() {
+import { spiralImg } from "@/constants/media";
+import WhoWeAreImage from "src/assets/images/who-we-are.jpg";
+
+export function WhoWeAre() {
   return (
     <section
       id="who-we-are"
@@ -26,9 +28,9 @@ export default function Identity() {
       <div className="w-full py-6 lg:py-0 px-4% lg:px-0 flex relative items-center justify-center">
         <Image
           alt=""
-          width={1000}
-          height={1000}
-          src={spiralImg.src}
+          width={1920}
+          height={900}
+          src={spiralImg}
           className="top-0 left-0 absolute w-full h-full object-cover opacity-10"
         />
 
@@ -36,7 +38,7 @@ export default function Identity() {
           alt=""
           width={1000}
           height={1000}
-          src={aboutUsImg.src}
+          src={WhoWeAreImage}
           className="w-full object-contain z-10"
         />
       </div>

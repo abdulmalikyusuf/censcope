@@ -26,7 +26,7 @@ export default function Discover() {
         src={spiralImg}
         className="top-0 left-0 w-full h-full absolute object-cover opacity-10"
       />
-      <header className="w-full flex flex-col items-center md:items-start gap-4 relative z-10">
+      <div className="w-full flex flex-col items-center md:items-start gap-4 relative z-10">
         <h2 className="text-2xl md:text-4xl capitalize">
           Learn more about our{" "}
           <span className="text-red-700 uppercase font-anton">
@@ -42,10 +42,10 @@ export default function Discover() {
         <p className="text-md md:text-xl">
           CENSCOPE is a non-profit, apolitical and secular international NGO.
         </p>
-      </header>
+      </div>
 
-      <div className="bg-white flex flex-wrap relative z-10 py-10 md:py-12">
-        <div className="px-6 lg:px-10 gap-6 items-start justify-center flex flex-1 flex-col basis-80 md:basis-96">
+      <div className="bg-white flex flex-wrap gap-y-10 relative z-10 py-10 md:py-12 px-6 lg:px-10 w-full">
+        <div className="basis-80 md:basis-2/5">
           <p className="text-md md:text-xl font-titillium">
             The Centre for Social Cohesion, Peace and Empowerment (CENSCOPE)
             helps civilian victims marginalized or excluded by the effects of
@@ -55,7 +55,7 @@ export default function Discover() {
           <button
             type="button"
             onClick={() => router.push("/about-us")}
-            className="outline-none border-2 relative border-black hover:border-cyan-600 px-8 py-3 group transition-all before:absolute before:w-0 hover:before:w-full before:h-full before:bg-cyan-600 before:left-0 before:top-0 before:transition-all before:duration-300 before:-z-10"
+            className="mt-6 outline-none border-2 relative border-black hover:border-cyan-600 px-8 py-3 group transition-all before:absolute before:w-0 hover:before:w-full before:h-full before:bg-cyan-600 before:left-0 before:top-0 before:transition-all before:duration-300 before:-z-10"
           >
             <span className="z-50 gap-2 flex items-center  group-hover:text-white">
               learn more{" "}

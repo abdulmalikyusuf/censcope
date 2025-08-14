@@ -1,6 +1,8 @@
-import { spiralImg, supportImg } from "@/constants/media";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+
+import { spiralImg } from "@/constants/media";
+import WhoWeAreImage from "src/assets/images/who-we-are.jpg";
 
 export default function Career() {
   const titles = [
@@ -34,7 +36,7 @@ export default function Career() {
           alt=""
           width={1000}
           height={1000}
-          src={supportImg}
+          src={WhoWeAreImage}
           className="z-10 w-full h-full relative object-cover"
         />
       </div>

@@ -117,7 +117,8 @@ export function generateSummary(html: string | null): string {
   }
 }
 
-export function getFirstImageSrc(htmlString: string): string | null {
+export function getFirstImageSrc(htmlString: string | null): string | null {
+  if (!htmlString) return null;
   // Method 1: Using Regular Expressions (Less Robust)
   const regex = /<img\s+[^>]*?src="([^"]*)"/i;
   const match = htmlString.match(regex);

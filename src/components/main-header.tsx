@@ -58,8 +58,10 @@ export default function Header() {
           <Link
             key={link.label}
             href={link.href}
-            className={`relative flex flex-col transition-all md:hover:text-inherit text-center after:h-1 after:bg-cyan-600 after:w-0 md:hover:after:w-full after:transition-all ${
-              pathname === link.href ? "text-cyan-600" : "hover:text-cyan-600"
+            className={`relative flex flex-col transition-all md:hover:text-inherit text-center after:h-0.5 after:bg-cyan-600 after:scale-0 after:w-full md:hover:after:scale-100 after:origin-center after:transition-transform after:duration-300 after:delay-100 ${
+              pathname === link.href
+                ? "text-cyan-600 font-medium"
+                : "hover:text-cyan-600"
             }`}
           >
             {link.label}

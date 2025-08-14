@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { logoIcon } from "@/constants/media";
 import Link from "next/link";
 
 export default function Donate() {
@@ -16,7 +15,7 @@ export default function Donate() {
             alt=""
             width={1000}
             height={1000}
-            src={logoIcon.src}
+            src="/LOGOJ2.png"
             className="w-32"
           />
         </Link>

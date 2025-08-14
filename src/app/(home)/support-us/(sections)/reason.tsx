@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 
-import { spiralImg, supportImg } from "@/constants/media";
+import { spiralImg } from "@/constants/media";
+import WhoWeAreImage from "src/assets/images/who-we-are.jpg";
 
 export default function Reason() {
   const titles = [
@@ -60,7 +61,7 @@ export default function Reason() {
               alt=""
               width={1000}
               height={1000}
-              src={supportImg}
+              src={WhoWeAreImage}
               className="w-full h-full object-cover bg-gray-50"
             />
           </div>

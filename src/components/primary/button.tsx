@@ -1,3 +1,5 @@
+"use client";
+
 import { FaArrowRight } from "react-icons/fa";
 
 export default function Button(properties: ButtonProps) {

@@ -2,8 +2,8 @@
 import Image from "next/image";
 import SupportCard from "./card";
 import { supports } from "@/constants/data";
-import { supportImg } from "@/constants/media";
 import useObserver from "@/hooks/observer.hook";
+import SupportBgImage from "../../../../../assets/images/support-bg.jpg";
 
 export default function Support() {
   const { ref, entryData } = useObserver();
@@ -16,9 +16,9 @@ export default function Support() {
     >
       <Image
         alt=""
-        width={1000}
-        height={1000}
-        src={supportImg}
+        width={1920}
+        height={900}
+        src={SupportBgImage}
         className={`top-0 left-0 w-full h-full absolute object-cover duration-500 transition-all ${
           entryData?.isIntersecting
             ? "scale-100 opacity-100"
@@ -26,8 +26,8 @@ export default function Support() {
         }`}
       />
 
-      <div className="w-full h-full z-10 flex flex-col gap-16 items-center lg:items-start justify-between text-white">
-        <header
+      <div className="w-full h-full z-10 flex flex-col gap-8 lg:gap-10 items-center lg:items-start justify-between text-white">
+        <div
           className={`flex flex-col gap-4 ${
             entryData?.isIntersecting
               ? "translate-y-0 opacity-100"
@@ -41,9 +41,9 @@ export default function Support() {
             It is thanks to your commitment that we can carry out our
             humanitarian missions.
           </p>
-        </header>
+        </div>
 
-        <div className="w-full flex flex-wrap items-center justify-evenly gap-8">
+        <div className="flex flex-wrap lg:flex-nowrap items-stretch justify-evenly gap-4 md:gap-6 xl:gap-8">
           {supports.map((card, index) => (
             <SupportCard
               key={index}

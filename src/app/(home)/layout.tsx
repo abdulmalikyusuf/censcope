@@ -11,7 +11,7 @@ export default function Layout(properties: HomeLayoutProps) {
   return (
     <>
       <Header />
-      <main className="w-full flex grow flex-col z-10 bg-white">
+      <main className="w-full flex grow flex-col z-10 bg-white max-md:mt-[88px]">
         <NuqsAdapter>{properties.children}</NuqsAdapter>
       </main>
       <Footer />

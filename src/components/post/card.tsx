@@ -4,7 +4,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { format } from "date-fns";
 
 import { getFirstImageSrc } from "@/lib/utils";
-import { supportImg } from "@/constants/media";
+import { ImageIcon } from "lucide-react";
 
 export function NewsCard({
   title,
@@ -13,22 +13,25 @@ export function NewsCard({
   slug,
   content,
 }: CombinedPost) {
+  console.log(content);
   return (
     <Link
       href={`/our-newsline/${slug}`}
-      className="aspect-[3/4] max-w-80 group gap-2 bg-gray-600 flex flex-none flex-col items-start justify-between p-4 xl:p-6 snap-center lg:snap-start relative overflow-hidden"
+      className="aspect-[3/4] w-80 group gap-2 bg-slate-400 flex flex-none flex-col items-start justify-between p-4 xl:p-6 snap-center lg:snap-start relative overflow-hidden"
     >
-      <Image
-        alt=""
-        width={1000}
-        height={1000}
-        src={
-          !!content
-            ? getFirstImageSrc(content) ?? supportImg.src
-            : supportImg.src
-        }
-        className="absolute top-0 left-0 w-full h-full object-cover brightness-50 scale-125 rotate-6 transition-all duration-500 group-hover:scale-100 group-hover:rotate-0"
-      />
+      {getFirstImageSrc(content) === null ? (
+        <div className="absolute top-0 left-0 flex justify-center items-center h-full w-full">
+          <ImageIcon className="size-6 lg:size-10" />
+        </div>
+      ) : (
+        <Image
+          alt=""
+          width={1000}
+          height={1000}
+          src={getFirstImageSrc(content)!}
+          className="absolute top-0 left-0 w-full h-full object-cover brightness-50 scale-125 rotate-6 transition-all duration-500 group-hover:scale-100 group-hover:rotate-0"
+        />
+      )}
       <span className="px-4 z-10 py-1 capitalize  text-white bg-teal-700">
         news
       </span>

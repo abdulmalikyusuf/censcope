@@ -1,4 +1,4 @@
-import { and, eq, ilike } from "drizzle-orm";
+import { eq, isNotNull, ilike, and } from "drizzle-orm";
 import {
   createSearchParamsCache,
   parseAsString,
@@ -7,7 +7,7 @@ import {
 
 import { db } from "@/db";
 import { posts, tags as tagsTable, users } from "@/db/schema";
-import { NewsCard } from "./(sections)/news/card";
+import { NewsCard } from "@/components/post/card";
 import Banner from "./(sections)/banner";
 import { Filter } from "./(sections)/filter";
 
@@ -28,7 +28,7 @@ async function Page(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
   const { authorId, tagId, q, sort } = searchParamsCache.parse(searchParams);
 
-  const whereConditions = [eq(posts.published, true)];
+  const whereConditions = [eq(posts.published, true), isNotNull(posts.content)];
 
   if (authorId) {
     whereConditions.push(eq(posts.authorId, authorId));
