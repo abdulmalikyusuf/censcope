@@ -3,11 +3,11 @@
 import { useRef, useTransition, useState } from "react";
 import imageCompression from "browser-image-compression";
 
-import { uploadImage } from "@/lib/actions/images";
+import { uploadImages } from "@/lib/actions/images";
 import { toast } from "sonner";
 
 export function UploadImage() {
-  const [isPending, startTransition] = useTransition();
+  const [pending, startTransition] = useTransition();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [compressionProgress, setCompressionProgress] = useState<number>();
 
@@ -21,7 +21,7 @@ export function UploadImage() {
     try {
       // Process all files in parallel
       const processedFiles = await Promise.all(
-        Array.from(files).map(async (file,index) => {
+        Array.from(files).map(async (file, index) => {
           try {
             if (file.size > 1 * 1024 * 1024) {
               // Compress if >1MB
@@ -32,7 +32,7 @@ export function UploadImage() {
                 onProgress: (progress: number) =>
                   progress >= 100
                     ? setCompressionProgress(undefined)
-                    : setCompressionProgress((progress*index)/files.length),
+                    : setCompressionProgress((progress * index) / files.length),
               };
               return await imageCompression(file, options);
             }
@@ -50,7 +50,7 @@ export function UploadImage() {
         .forEach((file) => formData.append("files", file!));
 
       startTransition(async () => {
-        const res = await uploadImage(formData);
+        const res = await uploadImages(formData);
         if (res?.error) {
           console.log(res.error);
 
@@ -69,7 +69,8 @@ export function UploadImage() {
   return (
     <label
       htmlFor="uploadFile1"
-      className="bg-white text-slate-500 font-semibold text-base rounded max-w-md h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto"
+      data-active={pending}
+      className="bg-white text-slate-500 font-semibold text-base rounded max-w-md h-52 flex flex-col items-center justify-center cursor-pointer border-2 border-gray-300 border-dashed mx-auto data-[active='true']:cursor-not-allowed data-[active='true']:opacity-50"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +88,7 @@ export function UploadImage() {
       </svg>
       {compressionProgress
         ? `Compressing: ${compressionProgress.toFixed(2)}%`
-        : isPending
+        : pending
         ? "Uploading"
         : "Upload file"}
       <input
@@ -98,7 +99,7 @@ export function UploadImage() {
         multiple
         ref={fileInputRef}
         onChange={handleUpload}
-        disabled={isPending || !!compressionProgress}
+        disabled={pending || !!compressionProgress}
       />
       <p className="text-xs font-medium text-slate-400 mt-2">
         PNG, JPG SVG, WEBP, and GIF are Allowed.

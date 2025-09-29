@@ -5,7 +5,10 @@ import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Censope Admin",
+  title: {
+    template: "%s | CENSCOPE Admin Panel",
+    default: "CENSCOPE Admin Panel",
+  },
 };
 
 const fontSans = FontSans({

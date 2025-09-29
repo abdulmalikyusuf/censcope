@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { ChevronLeft, Loader2, Save } from "lucide-react";
 import NextLink from "next/link";
-import { EditorContent, type Extension, useEditor, useEditorState } from "@tiptap/react";
+import {
+  EditorContent,
+  type Extension,
+  useEditor,
+  useEditorState,
+} from "@tiptap/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner"
+import { toast } from "sonner";
 
 import { Separator } from "@/components/ui/separator";
 import { BorderTrail } from "@/components/motion-primitives/border-trail";
@@ -26,9 +31,8 @@ import {
 import { updatePost } from "@/lib/actions/post";
 import { TagInput } from "./tag-input";
 import { SelectTag } from "@/db/schema";
-import { extensionKit } from "./kit"
+import { extensionKit } from "./kit";
 import ToolbarBlock from "./toolbars";
-
 
 const FormSchema = z.object({
   tags: z
@@ -41,7 +45,6 @@ const FormSchema = z.object({
     required_error: "Please provide a title.",
   }),
 });
-
 
 interface PostAttributes {
   id: string;
@@ -60,23 +63,39 @@ interface TiptapEditorProps extends PostAttributes {
   allTags: SelectTag[];
 }
 
-function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) {
-  const [pending, setPending] = useState(false)
+function TiptapEditor({
+  title,
+  content,
+  id,
+  tags,
+  allTags,
+}: TiptapEditorProps) {
+  const [pending, setPending] = useState(false);
   const editor = useEditor({
     extensions: extensionKit as Extension[],
     content,
     immediatelyRender: false,
+    // editorProps: {
+    //   transformPastedHTML(html) {
+    //     // Prevent double <figure><figcaption> wrappers
+    //     return html
+    //       .replace(/<figure[^>]*>/g, "<figure>")
+    //       .replace(/<\/figure>/g, "</figure>")
+    //       .replace(/<figcaption[^>]*>/g, "<figcaption>")
+    //       .replace(/<\/figcaption>/g, "</figcaption>");
+    //   },
+    // },
   });
 
   const counter = useEditorState({
     editor,
-    selector: ctx => {
+    selector: (ctx) => {
       return {
         characterCount: ctx.editor?.storage.characterCount.characters() ?? 0,
-        wordCount: ctx.editor?.storage.characterCount.words() ?? 0
-      }
+        wordCount: ctx.editor?.storage.characterCount.words() ?? 0,
+      };
     },
-  })
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -87,7 +106,7 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
   }
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    setPending(true)
+    setPending(true);
     const formdata = new FormData();
     // If title is different from current, this is to prevent unique_constraint when deriving slug due to same title
     if (values.title !== title) formdata.set("title", values.title);
@@ -98,17 +117,9 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
     formdata.set("content", editor.getHTML());
     formdata.set("postId", id!);
 
-    const data = {
-      title: values.title,
-      content: editor.getHTML(),
-      tags: values.tags,
-    };
-    console.log(data);
     const res = await updatePost(formdata);
-    toast(res.message)
-    console.log(res);
-    setPending(false)
-
+    toast(res.message);
+    setPending(false);
   };
 
   return (
@@ -130,7 +141,9 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
                   <span className="">Back to Posts</span>
                 </NextLink>
                 <Separator orientation="vertical" className="h-7" />
-                <h1 className="text-lg font-semibold">Censcope Blog Post Editor</h1>
+                <h1 className="text-lg font-semibold">
+                  Censcope Blog Post Editor
+                </h1>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -143,7 +156,11 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
                 </p>
               </div>
               <Button type="submit" disabled={pending}>
-                {pending ? <Loader2 className="mr-2 size-4 animate-spin" /> : <Save className="size-4" />}
+                {pending ? (
+                  <Loader2 className="mr-2 size-4 animate-spin" />
+                ) : (
+                  <Save className="size-4" />
+                )}
                 <span className="">Save</span>
               </Button>
             </div>
@@ -176,7 +193,7 @@ function TiptapEditor({ title, content, id, tags, allTags }: TiptapEditorProps) 
                   availableTags={allTags}
                   onChange={field.onChange}
                   placeholder="Add or create tags..."
-                  initialSelectedTags={tags.map(t => t.tag)}
+                  initialSelectedTags={tags.map((t) => t.tag)}
                   maxTags={5}
                 />
               </FormControl>

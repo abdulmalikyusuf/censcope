@@ -19,6 +19,7 @@ export default function Scrollable(properties: ScrollableType) {
   }, [entryData]);
 
   React.useEffect(() => {
+    const sections = sectionRefs.current;
     properties.sections.forEach(({ id }) => {
       const observer = new IntersectionObserver(
         ([entry]) => {
@@ -47,9 +48,7 @@ export default function Scrollable(properties: ScrollableType) {
     });
 
     return () => {
-      Object.values(sectionRefs.current).forEach((observer) =>
-        observer.disconnect()
-      );
+      Object.values(sections).forEach((observer) => observer.disconnect());
     };
   }, [properties.sections]);
 

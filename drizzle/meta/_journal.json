@@ -5,50 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1744237451452,
-      "tag": "0000_daily_screwball",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1744555233186,
-      "tag": "0001_absurd_black_widow",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1744843863512,
-      "tag": "0002_pale_spirit",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1745938335413,
-      "tag": "0003_blushing_kate_bishop",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1745965507395,
-      "tag": "0004_awesome_hammerhead",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1746390449594,
-      "tag": "0005_dusty_romulus",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1746390728570,
-      "tag": "0006_futuristic_mordo",
+      "when": 1758040327106,
+      "tag": "0000_serious_chimera",
       "breakpoints": true
     }
   ]

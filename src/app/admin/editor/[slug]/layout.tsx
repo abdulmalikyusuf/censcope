@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Censope Blog Post Editor",
+  title: "Post Editor",
 };
 
 export default async function RootLayout({

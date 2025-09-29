@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https" as const,
-        hostname: "pmwdsnktirccifvhuwdf.supabase.co",
-        pathname: "/storage/v1/object/public/cyan/**",
+        hostname: "res.cloudinary.com",
+        pathname: "/dy1adetmy/image/upload/*/censcope/**",
         search: "",
       },
       {
@@ -20,6 +20,10 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "5mb",
     },
+  },
+  browserDebugInfoInTerminal: process.env.NODE_ENV === "production",
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
   },
 };
 

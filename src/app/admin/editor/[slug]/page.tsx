@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import TiptapEditor from "@/components/editor";
 import { db } from "@/db";
-import { tags as tagsTable, } from "@/db/schema";
+import { tags as tagsTable } from "@/db/schema";
 
 export const metadata: Metadata = {
-  title: "Censope Blog Post Editor",
+  title: "Post Editor",
 };
 
 const getData = cache(async (slug: string) => {
@@ -15,10 +15,10 @@ const getData = cache(async (slug: string) => {
     where: (posts, { eq }) => eq(posts.id, slug),
     orderBy: (posts, { desc }) => [desc(posts.updatedAt)],
     columns: {
-      id:true,
-      content:true,
+      id: true,
+      content: true,
       slug: true,
-      title:true
+      title: true,
     },
     with: {
       tags: {

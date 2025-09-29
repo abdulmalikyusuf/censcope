@@ -4,6 +4,7 @@ import {
   parseAsString,
   parseAsStringEnum,
 } from "nuqs/server";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { db } from "@/db";
 import { posts, tags as tagsTable, users } from "@/db/schema";
@@ -77,7 +78,7 @@ async function Page(props: { searchParams: SearchParams }) {
     tags: post.tags.map((p2t) => p2t.tag),
   }));
   return (
-    <>
+    <NuqsAdapter>
       <Banner />
       <Filter count={finalPosts.length} tags={tags} authors={authors} />
       <div className="w-full grid gap-6 grid-cols-[repeat(auto-fit,minmax(min(280px,100%),320px))] pb-20 px-5% lg:px-7%">
@@ -92,7 +93,7 @@ async function Page(props: { searchParams: SearchParams }) {
           />
         ))}
       </div>
-    </>
+    </NuqsAdapter>
   );
 }
 

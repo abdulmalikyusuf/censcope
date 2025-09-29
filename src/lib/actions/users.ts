@@ -2,6 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { ZodError, z } from "zod";
 import { eq } from "drizzle-orm";
+import bcrypt from "bcrypt";
 
 import { db } from "@/db";
 import { users } from "@/db/schema";
@@ -12,17 +13,12 @@ import { fileToURI } from "../utils";
 import { UploadApiResponse } from "cloudinary";
 
 type Prettify<T> = {
-  [K in keyof T]: T[K]
+  [K in keyof T]: T[K];
 } & {};
 
 type ToDiscoUnion<T extends Record<string, object>> = {
   [K in keyof T]: Prettify<{ status: K } & T[K]>;
 }[keyof T];
-
-
-type ActionResult1 = 
-  | { status: "success"}
-  | { status: "error";
 
 type ActionResult = Prettify<
   ToDiscoUnion<{
@@ -32,8 +28,6 @@ type ActionResult = Prettify<
     message: string;
   }
 >;
-  
-
 
 export async function createOrUpdateUser(
   formdata: FormData
@@ -55,7 +49,7 @@ export async function createOrUpdateUser(
 
   const { name, email, password, avatar } = validationResult.data;
   let avatarPath: string | undefined = undefined;
-  let cloudinaryRes: UploadApiResponse|null=null;
+  let cloudinaryRes: UploadApiResponse | null = null;
   // Flag to track if it's an update operation
   const isUpdateOperation = !!userId;
 
@@ -69,14 +63,14 @@ export async function createOrUpdateUser(
       };
     }
 
-
     if (avatar) {
       const fileURI = await fileToURI(avatar);
 
-      cloudinaryRes = await uploadToCloudinary(
+      const uploadResult = await uploadToCloudinary(
         fileURI,
         `avatar/${session?.user.id}`
       );
+      cloudinaryRes = uploadResult ?? null;
 
       if (!cloudinaryRes) {
         console.error("Avatar upload succeeded but path is missing");
@@ -90,8 +84,8 @@ export async function createOrUpdateUser(
 
     // --- 2. Perform Create or Update ---
     if (isUpdateOperation && userId) {
-      const oldData = await db.select().from(users).where(eq(users.id, userId))
-      
+      const oldData = await db.select().from(users).where(eq(users.id, userId));
+
       const dataToUpdate: { name: string; avatar?: string } = { name };
       if (avatarPath) {
         dataToUpdate.avatar = avatarPath;
@@ -101,23 +95,23 @@ export async function createOrUpdateUser(
         .update(users)
         .set(dataToUpdate)
         .where(eq(users.id, userId))
-        .$returningId();
+        .returning({ updatedEmail: users.email, updatedId: users.id });
 
       if (!result || result.length === 0) {
         console.error("DB update failed for user ID:", userId);
         // Attempt to delete newly uploaded avatar if DB update failed?
-        if (avatarPath && cloudinaryRes) await deleteFromCloudinary(cloudinaryRes.public_id);
+        if (avatarPath && cloudinaryRes)
+          await deleteFromCloudinary(cloudinaryRes.secure_url);
         return {
           status: "error",
           message: "User not found or failed to update profile information.",
         };
       }
 
-      const oldAvatarPublicId = oldData.at(0).avatarPublicId
-      const oldAvatarPath = oldData.at(0).avatar
+      const oldAvatar = oldData[0].avatar;
       // --- Delete old avatar now if DB update succeeded ---
-      if (oldAvatarPath && oldAvatarPath !== avatarPath) {
-        await deleteFromCloudinary(oldAvatarPublicId);
+      if (oldAvatar && oldAvatar !== avatarPath) {
+        await deleteFromCloudinary(oldAvatar);
       }
 
       return {
@@ -126,45 +120,41 @@ export async function createOrUpdateUser(
         data: {
           userId: result[0].updatedId,
           email: result[0].updatedEmail,
-        }
+        },
       };
     } else {
+      const hashedPassword = await bcrypt.hash(password!, 12);
       const userData = {
         name,
         avatar: avatarPath,
+        email,
+        password: hashedPassword,
       };
 
-      const result = await db
-        .update(users)
-        .set(userData)
-        .where(eq(users.id, authData.user.id))
-        .returning({
-          insertedId: users.id, // return specific fields
-          insertedEmail: users.email,
-        });
+      const result = await db.insert(users).values(userData).returning({
+        insertedId: users.id, // return specific fields
+        insertedEmail: users.email,
+      });
 
       if (!result || result.length === 0) {
         console.error(
           "DB insert failed after successful signup. Auth User ID:",
-          authData.user.id
+          userId
         );
 
-        if (avatarPath) {
-          await deleteFromCloudinary(cloudinaryRes.public_id);
+        if (avatarPath && cloudinaryRes) {
+          await deleteFromCloudinary(cloudinaryRes.secure_url);
         }
         return {
           status: "error",
           message: "Failed to save user profile information after signup.",
         };
       }
+      revalidatePath("/admin/users");
 
-      // 5. Return Success
       return {
         status: "success",
-        message: `User registration initiated successfully for ${result[0].insertedEmail}. Please check your email for verification if required.`,
-
-        userId: result[0].insertedId,
-        email: result[0].insertedEmail,
+        message: `User registration initiated successfully for ${result[0].insertedEmail}.`,
       };
     }
   } catch (error) {
@@ -209,8 +199,8 @@ const DeleteUserSchema = z.object({
 });
 
 type DeleteActionResult =
-  | { status: "success"}
-  | { status: "error";
+  | { status: "success"; message: string }
+  | { status: "error"; message: string };
 
 export async function deleteUser(
   userIdToDelete: string
@@ -245,7 +235,7 @@ export async function deleteUser(
     const deleteDbResult = await db
       .delete(users)
       .where(eq(users.id, userId))
-      .returning({ deletedId: users.id });
+      .returning({ deletedId: users.id, deletedUrl: users.avatar });
 
     if (!deleteDbResult || deleteDbResult.length === 0) {
       // This could happen if the user was already deleted from the DB or never existed there
@@ -258,6 +248,8 @@ export async function deleteUser(
         message: `User removed from authentication, but profile data was not found in the database.`,
       };
     } else {
+      if (deleteDbResult[0].deletedUrl)
+        await deleteFromCloudinary(deleteDbResult[0].deletedUrl);
       console.log(
         `Successfully deleted user ${deleteDbResult[0].deletedId} from the database.`
       );

@@ -1,7 +1,5 @@
 import type { NextAuthConfig } from "next-auth";
 
-import { signOut } from "@/lib/auth";
-
 export const authConfig = {
   pages: {
     signIn: "/admin/signin",
@@ -9,13 +7,25 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const isOnAdmin = nextUrl.pathname.startsWith("/admin");
-      const isOnLoginPage = nextUrl.pathname === "/admin/signin";
+      const { pathname } = nextUrl;
 
-      if (isOnLoginPage && !isLoggedIn)
-        return Response.redirect(new URL("/admin", nextUrl));
-      if (isOnAdmin && isLoggedIn) return true;
-      return false;
+      // If logged in and trying to visit /admin/signin → redirect to /admin
+      if (pathname === "/admin/signin" && isLoggedIn) {
+        return false;
+      }
+
+      // If trying to access /admin/* but not logged in → redirect
+      if (pathname.startsWith("/admin") && !isLoggedIn) {
+        return false;
+      }
+
+      // Allow the signin page without auth
+      if (pathname.startsWith("/admin/signin")) {
+        return true;
+      }
+
+      // Otherwise, allow request
+      return true;
     },
     async jwt({ token, user }) {
       if (user) {
@@ -34,6 +44,23 @@ export const authConfig = {
         },
       };
     },
+    async redirect({ url, baseUrl }) {
+      // Allows relative URLs
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+      // If same origin allowed
+      try {
+        const parsed = new URL(url);
+        if (parsed.origin === baseUrl) {
+          return url;
+        }
+      } catch {
+        // If parsing fails, fallback
+      }
+      // Fallback to baseUrl
+      return baseUrl;
+    },
   },
   events: {
     async signIn({ user }) {
@@ -47,8 +74,7 @@ export const authConfig = {
       if ("session" in message) {
         if (message.session?.userId) {
           console.log("[AUTH] Signing out...");
-          signOut()
-         
+          // signOut();
         }
       }
     },

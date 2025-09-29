@@ -56,14 +56,16 @@
     }
   }
 
-  :is(h1, h2, h3, h4, h5, h6, button:not(.whitespace-nowrap)) {
+  :is(h1, h2, h3, h4, h5, h6, button:not(.whitespace-nowrap)):not(
+      div.tiptap.ProseMirror :is(h1, h2, h3, h4, h5, h6)
+    ) {
     @apply font-anton;
   }
   :is(button.whitespace-nowrap) {
-    @apply font-inter;
+    @apply font-[var(--font-sans)];
   }
 
-  :is(span, p) {
+  :is(span, p):not(div.tiptap.ProseMirror p) {
     @apply font-titillium;
   }
 
@@ -165,25 +167,32 @@
     scroll-margin-top: 12em;
   }
   h1.custom-heading {
-    @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+    @apply text-5xl font-bold tracking-tight lg:text-6xl;
   }
   h2.custom-heading {
-    @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0;
+    @apply text-4xl font-bold tracking-tight;
   }
   h3.custom-heading {
-    @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+    @apply text-3xl font-semibold tracking-tight;
   }
   h4.custom-heading {
-    @apply scroll-m-20 text-xl font-semibold tracking-tight;
+    @apply text-2xl font-semibold tracking-tight;
   }
   h5.custom-heading {
-    @apply scroll-m-20 text-lg font-medium tracking-tight;
+    @apply text-xl font-medium tracking-tight;
   }
   h6.custom-heading {
-    @apply scroll-m-20 font-medium tracking-tight;
+    @apply text-lg font-medium tracking-tight;
   }
+
   div.tiptap.ProseMirror p {
-    @apply leading-7 [&:not(:first-child)]:mt-6;
+    @apply my-3 font-[var(--font-sans)];
+  }
+  div.tiptap.ProseMirror li p {
+    @apply mb-2 font-[var(--font-sans)];
+  }
+  div.tiptap.ProseMirror :is(h1, h2, h3, h4, h5, h6) {
+    @apply mb-[0.3em] mt-[1em] font-[var(--font-sans)] [&:first-child]:mt-0;
   }
 }
 

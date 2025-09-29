@@ -1,9 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import NextImage from "next/image";
 import Image from "@tiptap/extension-image";
 import {
-  NodeViewContent,
   type NodeViewProps,
   NodeViewWrapper,
   ReactNodeViewRenderer,
@@ -54,6 +53,41 @@ export const ImageExtension = Image.extend({
     };
   },
 
+  parseHTML() {
+    return [
+      {
+        tag: "img[src]",
+      },
+    ];
+  },
+
+  addCommands() {
+    return {
+      convertToFigure:
+        () =>
+        ({ state, commands }) => {
+          const { selection } = state;
+          const pos = selection.from;
+          const node = state.doc.nodeAt(pos);
+
+          if (node?.type.name !== "image") return false;
+
+          return commands.insertContentAt(
+            { from: pos, to: selection.to },
+            {
+              type: "figure",
+              content: [
+                node.toJSON(), // reuse the existing image node
+                {
+                  type: "caption",
+                  content: [{ type: "text", text: "Enter a description…" }],
+                },
+              ],
+            }
+          );
+        },
+    };
+  },
   addNodeView: () => {
     return ReactNodeViewRenderer(TiptapImage);
   },
@@ -61,6 +95,7 @@ export const ImageExtension = Image.extend({
 
 function TiptapImage(props: NodeViewProps) {
   const { node, editor, selected, deleteNode, updateAttributes } = props;
+
   const imageRef = useRef<HTMLImageElement | null>(null);
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const [resizing, setResizing] = useState(false);
@@ -195,17 +230,15 @@ function TiptapImage(props: NodeViewProps) {
           resizing && ""
         )}
       >
-        <NextImage
+        {(console.log(node.attrs), null)}
+        <img
           ref={imageRef}
           src={node.attrs.src}
           alt={node.attrs.alt ?? ""}
-          title={node.attrs.title}
+          data-title={node.attrs.title}
           height={880}
           width={1024}
         />
-        <NodeViewContent as="figcaption" className="text-center">
-          {node.attrs.title}
-        </NodeViewContent>
 
         {editor?.isEditable && (
           <>

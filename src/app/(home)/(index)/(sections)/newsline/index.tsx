@@ -33,7 +33,7 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
         <div className="flex ml-auto items-center gap-2 text-white">
           <button
             type="button"
-            className="p-3 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all disabled:bg-gray-500"
+            className="p-3 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all disabled:bg-gray-500 disabled:cursor-not-allowed"
             onClick={onPrevButtonClick}
             disabled={prevBtnDisabled}
           >
@@ -41,7 +41,7 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
           </button>
           <button
             type="button"
-            className="p-3 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all disabled:bg-gray-500"
+            className="p-3 cursor-pointer rounded-full bg-black w-10 h-10 active:scale-90 hover:bg-cyan-600 transition-all disabled:bg-gray-500 disabled:cursor-not-allowed"
             onClick={onNextButtonClick}
             disabled={nextBtnDisabled}
           >
@@ -51,7 +51,7 @@ export default function Newline({ posts }: { posts: CombinedPostArray }) {
       </header>
       <div className="overflow-hidden" ref={emblaRef}>
         <article className="w-full pl-4 md:pl-6 lg:pl-10 grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] auto-cols-[320px] grid-flow-col items-center justify-start gap-4 snap-x snap-mandatory hide-scrollbar">
-          <div className="basis-80 flex-none snap-start hidden lg:flex" />
+          {/* <div className="basis-80 flex-none snap-start hidden lg:flex" /> */}
           {posts.map((post, id) => (
             <NewsCard
               key={id}

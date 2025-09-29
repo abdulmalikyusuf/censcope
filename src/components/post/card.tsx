@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import { format } from "date-fns";
 
@@ -24,7 +24,7 @@ export function NewsCard({
           <ImageIcon className="size-6 lg:size-10" />
         </div>
       ) : (
-        <Image
+        <img
           alt=""
           width={1000}
           height={1000}

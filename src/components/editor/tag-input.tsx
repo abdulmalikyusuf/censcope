@@ -197,7 +197,7 @@ export function TagInput({
           </Button>
         </PopoverTrigger>
         <PopoverContent
-          className="w-[--radix-popover-trigger-width] p-0"
+          className="w-fit max-w-80 [--radix-popover-trigger-width] p-0"
           align="start"
         >
           <Command

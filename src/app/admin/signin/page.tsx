@@ -1,8 +1,13 @@
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
 import { SigninForm } from "@/components/signin-form";
+
+export const metadata: Metadata = {
+  title: "Sign-in",
+};
 
 export default function LoginPage() {
   return (

@@ -7,7 +7,7 @@ import { db } from "@/db";
 import { images } from "@/db/schema";
 import { deleteFromCloudinary, uploadToCloudinary } from "../cloudinary";
 import { fileToURI } from "@/lib/utils";
-import { auth } from "../auth";
+import { auth, signOut } from "../auth";
 
 export async function deleteGallery(galleryId: string) {
   return db.transaction(async (tx) => {
@@ -47,10 +47,11 @@ export async function uploadImages(formData: FormData) {
 
   try {
     const session = await auth();
-
+    console.log(session);
     if (!session || !session.user) {
       console.error("Could not authenticate user for upload.");
-      return { error: "Could not authenticate user for upload.", results };
+      return signOut({ redirectTo: "/admin/signin" });
+      // return { error: "Could not authenticate user for upload.", results };
     }
 
     const files = formData.getAll("files") as File[];

@@ -1,5 +1,6 @@
 import { env } from "@/env.mjs";
 import { v2 as cloudinary } from "cloudinary";
+import { extractPublicId } from "cloudinary-build-url";
 
 cloudinary.config({
   cloud_name: env.CLOUDINARY_NAME,
@@ -12,21 +13,26 @@ export async function uploadToCloudinary(fileURI: string, subFolder: string) {
   return await cloudinary.uploader
     .upload(fileURI, {
       invalidate: true,
-      folder: `cyan/${subFolder}`,
+      folder: `censcope/${subFolder}`,
     })
     .then((result) => result)
     .catch((error) => {
       console.log(error);
     });
 }
-export async function deleteFromCloudinary(publicId: string) {
-  return await cloudinary.uploader
-    .destroy(publicId)
-    .then((result) => {
-      console.log(result);
-      return result;
-    })
-    .catch((error) => {
-      console.log(error);
+export async function deleteFromCloudinary(
+  url: string,
+  resourceType = "image"
+) {
+  try {
+    const publicId = extractPublicId(url);
+    const result = await cloudinary.uploader.destroy(publicId, {
+      resource_type: resourceType,
     });
+    console.log("Delete result:", result);
+    return result;
+  } catch (err) {
+    console.error("Error deleting file:", err);
+    throw err;
+  }
 }

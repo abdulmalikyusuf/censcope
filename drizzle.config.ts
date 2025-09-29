@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { defineConfig } from "drizzle-kit";
 
 export default defineConfig({
@@ -5,8 +6,8 @@ export default defineConfig({
   schema: "./src/db/schema.ts",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.POSTGRES_URL!,
-    ssl: { rejectUnauthorized: false }, // 👈 Disables SSL verification
+    url: process.env.DATABASE_URL!,
+    // ssl: { rejectUnauthorized: false }, // 👈 Disables SSL verification
   },
   casing: "snake_case",
 });

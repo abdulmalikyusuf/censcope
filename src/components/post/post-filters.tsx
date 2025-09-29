@@ -77,7 +77,11 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
   const debounced = useDebouncedCallback(handleInputChange, 1000);
 
   const handleDateChange = (range: DateRange | undefined) => {
-    setFilters({ from: range?.from, to: range?.to });
+    setFilters((prev) => ({
+      ...prev,
+      ...(range?.to ? { to: range?.to } : {}),
+      ...(range?.from ? { from: range?.from } : {}),
+    }));
   };
 
   const handleTagChange = React.useCallback(
@@ -124,14 +128,14 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
           </div>
         </div>
         <div className="space-y-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="flex grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   id="date-range"
                   variant={"outline"}
                   className={cn(
-                    "w-full justify-start text-left font-normal",
+                    "w-fit justify-start text-left font-normal",
                     !filtersQ && "text-muted-foreground"
                   )}
                 >
@@ -170,7 +174,7 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
             >
               <SelectTrigger
                 id="author-select"
-                className="w-full text-muted-foreground justify-start text-left font-normal"
+                className="w-fit text-muted-foreground justify-start text-left font-normal"
               >
                 <User className="mr-2 h-4 w-4" />
                 <SelectValue placeholder="Select author" />
@@ -185,7 +189,7 @@ export function BlogFilters({ tags, authors }: BlogFiltersProps) {
               </SelectContent>
             </Select>
 
-            <div className="sm:col-span-2 lg:col-span-1 xl:col-span-2">
+            <div className="w-fit sm:col-span-2 lg:col-span-1 xl:col-span-2">
               <TagInput
                 availableTags={tags}
                 initialSelectedTags={tags.filter((tag) =>

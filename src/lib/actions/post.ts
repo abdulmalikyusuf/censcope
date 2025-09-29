@@ -10,7 +10,6 @@ import { slugify } from "../utils";
 import { auth } from "../auth";
 
 export async function createPost() {
-  console.log("Creating a new post...");
   try {
     // 1. Count existing "Untitled Post #" posts
     const untitledPostCountResult = await db
@@ -101,7 +100,7 @@ export async function updatePost(formData: FormData) {
             title,
             content,
             slug: slugify(title),
-            authorId: session.user.id,
+            authorId: session.user!.id,
           })
           .returning({ newId: posts.id, slug: posts.slug });
 

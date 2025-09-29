@@ -15,6 +15,7 @@ export default async function Page() {
   const posts = await db.query.posts.findMany({
     orderBy: (posts, { desc }) => [desc(posts.updatedAt)],
     columns: { title: true, slug: true, content: true, updatedAt: true },
+    where: (posts, { eq }) => eq(posts.published, true),
     with: {
       tags: {
         columns: {},
@@ -37,7 +38,7 @@ export default async function Page() {
   return (
     <>
       <Banner />
-      <Newline posts={postsWithTags} />
+      {postsWithTags.length > 0 && <Newline posts={postsWithTags} />}
       <Support />
       <Actions />
       <Discover />

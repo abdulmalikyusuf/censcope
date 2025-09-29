@@ -1,3 +1,4 @@
+// old schema (for migration)
 import {
   pgTable,
   text,
@@ -5,18 +6,15 @@ import {
   varchar,
   boolean,
 } from "drizzle-orm/pg-core";
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { timestamps } from "./columns.helpers";
 
 export const users = pgTable("users", {
-  id: text("cuid")
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
+  id: text("cuid").primaryKey(),
   email: text("email").notNull().unique(),
   avatar: text("avatars"),
   name: text("name"),
-  password: varchar({ length: 1024 }).notNull(),
   ...timestamps,
 });
 

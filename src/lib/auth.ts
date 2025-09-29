@@ -1,8 +1,26 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
+import bcrypt from "bcrypt";
 
 import { authConfig } from "@/config/auth";
+import { SelectUser, users } from "@/db/schema";
+import { db } from "@/db";
+
+async function getUser(email: string): Promise<SelectUser | undefined> {
+  try {
+    const user = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+    return user[0];
+  } catch (error) {
+    console.error("Failed to fetch user:", error);
+    throw new Error("Failed to fetch user.");
+  }
+}
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -19,9 +37,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          const user = await authHandlers.handleSignIn(email, password);
+          const user = await getUser(email);
           if (!user) return null;
-          return user;
+          const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          if (passwordsMatch) return { ...user, id: String(user.id) };
         }
 
         console.log("Invalid credentials");

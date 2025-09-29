@@ -21,22 +21,25 @@ export const CreatePostButton = forwardRef<
   }, [state, router]);
 
   return (
-    <button
-      formAction={action}
-      className={
-        className ??
-        "inline-flex items-center gap-x-2 rounded-md bg-black px-3.5 py-2.5 text-sm font-medium text-white shadow-sm"
-      }
-      ref={ref}
-      {...props}
-    >
-      {pending ? (
-        <FaSpinner className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-      ) : (
-        <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
-      )}
-      {children ?? "New Post"}
-    </button>
+    <form action={action}>
+      <button
+        type="submit"
+        disabled={pending}
+        className={
+          className ??
+          "inline-flex items-center gap-x-2 rounded-md bg-black px-3.5 py-2.5 text-sm font-medium text-white shadow-sm"
+        }
+        ref={ref}
+        {...props}
+      >
+        {pending ? (
+          <FaSpinner className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+        ) : (
+          <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+        )}
+        {children ?? "New Post"}
+      </button>
+    </form>
   );
 });
 

@@ -8,6 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import StarterKit from "@tiptap/starter-kit";
 import { Color } from "@tiptap/extension-color";
 import { CharacterCount } from "@tiptap/extension-character-count";
+import Image from "@tiptap/extension-image";
 
 import { ImageExtension } from "@/components/editor/extensions/image";
 import { Link } from "@/components/editor/extensions/link";
@@ -52,6 +53,7 @@ export const extensionKit = [
   Highlight.configure({
     multicolor: true,
   }),
+  Image,
   ImageExtension,
   ImagePlaceholder,
   SearchAndReplace,

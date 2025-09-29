@@ -1,6 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
-
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +12,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   NODE_HANDLES_SELECTED_STYLE_CLASSNAME,
   cn,
-  getSupabaseImagePath,
   isValidUrl,
 } from "@/lib/utils";
 import {
@@ -178,7 +176,7 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
 
             <TabsContent value="upload">
               <div className="max-h-[80vh] h-[280px] mt-1 px-3 pt-3">
-                <div className="items-center justify-center rounded-lg bg-muted text-muted-foreground grid grid-cols-3 [repeat(auto-fit,112px)] gap-2 h-full p-2 overflow-y-scroll">
+                <div className="items-start justify-center rounded-lg bg-muted text-muted-foreground grid grid-cols-3 [repeat(auto-fit,112px)] gap-2 h-full p-2 overflow-y-scroll">
                   {images?.map((image) => (
                     <div
                       key={image.id}
@@ -186,23 +184,21 @@ function ImagePlaceholderComponent(props: NodeViewProps) {
                         editor
                           .chain()
                           .focus()
-                          .setImage({ src: getSupabaseImagePath(image.url) })
+                          .setImage({ src: image.url })
                           .run();
                       }}
                       className="px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 m-1 relative flex aspect-square cursor-pointer items-center justify-center rounded-md"
                     >
                       <span className="absolute h-full w-full aspect-square inset-0 overflow-hidden rounded-md">
-                        <Image
-                          fill
+                        <img
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          src={getSupabaseImagePath(image.url)}
+                          src={image.url}
                           alt=""
                           className="object-cover object-center"
                         />
                       </span>
                     </div>
                   ))}
-                  {/* <UploadImage /> */}
                 </div>
               </div>
             </TabsContent>
