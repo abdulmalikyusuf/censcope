@@ -39,6 +39,13 @@ export default function Footer() {
             </Link>
             <Link
               className="text-white/80 hover:text-white transition-colors duration-300 text-base font-medium"
+              href="/reports"
+              data-discover="true"
+            >
+              Reports
+            </Link>
+            <Link
+              className="text-white/80 hover:text-white transition-colors duration-300 text-base font-medium"
               href="/our-actions"
               data-discover="true"
             >

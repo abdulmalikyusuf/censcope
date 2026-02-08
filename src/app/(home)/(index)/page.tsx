@@ -3,6 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { isNotNull, and } from "drizzle-orm";
 
 import { db } from "@/db";
+import { getBackgroundImageUrl } from "@/lib/actions/settings";
 import { Banner } from "./(sections)/banner";
 import { Support } from "./(sections)/support";
 import Newline from "./(sections)/newsline";
@@ -42,9 +43,11 @@ export default async function Page() {
     ...post,
     tags: post.tags.map((p2t) => p2t.tag),
   }));
+  const backgroundImageUrl = await getBackgroundImageUrl();
+
   return (
     <>
-      <Banner />
+      <Banner backgroundImageUrl={backgroundImageUrl} />
       {postsWithTags.length > 0 && <Newline posts={postsWithTags} />}
       <CTAButtons />
       <ExecutiveDirector />

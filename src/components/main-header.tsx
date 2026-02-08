@@ -10,6 +10,7 @@ const navlinks = [
   { label: "who we are", href: "/about-us" },
   { label: "what we do", href: "/our-actions" },
   { label: "news", href: "/news" },
+  { label: "reports", href: "/reports" },
   { label: "partnership", href: "/partnership" },
   { label: "career", href: "/career" },
   { label: "support us", href: "/support-us" },

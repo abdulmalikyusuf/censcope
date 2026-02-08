@@ -65,6 +65,28 @@ export function Header() {
             >
               Users
             </Link>
+            <Link
+              className={cn(
+                "text-sm/6",
+                pathname === "/admin/settings"
+                  ? "text-gray-950"
+                  : "text-gray-600 dark:text-white"
+              )}
+              href="/admin/settings"
+            >
+              Settings
+            </Link>
+            <Link
+              className={cn(
+                "text-sm/6",
+                pathname === "/admin/reports"
+                  ? "text-gray-950"
+                  : "text-gray-600 dark:text-white"
+              )}
+              href="/admin/reports"
+            >
+              Reports
+            </Link>
             <CreatePostButton className="group inline-flex gap-0.5 flex-nowrap relative px-1.5 text-sm/6 text-sky-800 dark:text-sky-300">
               <span className="absolute inset-0 border border-dashed border-sky-300/60 bg-sky-400/10 group-hover:bg-sky-400/15 dark:border-sky-300/30"></span>
               Post

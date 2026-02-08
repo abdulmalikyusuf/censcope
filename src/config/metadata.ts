@@ -191,3 +191,19 @@ export const partnershipMetadata: Metadata = {
     images: [ogImage],
   },
 };
+
+/* ----------------------------- REPORTS ----------------------------- */
+export const reportsMetadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: "Reports | CENSCOPE",
+  description:
+    "View and download CENSCOPE reports and publications.",
+  openGraph: {
+    title: "Reports | CENSCOPE",
+    description: "View and download CENSCOPE reports and publications.",
+    url: "/reports",
+    siteName: "CENSCOPE",
+    type: "website",
+    images: [ogImage],
+  },
+};
