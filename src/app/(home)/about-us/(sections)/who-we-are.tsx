@@ -11,17 +11,14 @@ export function WhoWeAre() {
       <div className="w-full flex flex-col items-start gap-6">
         <h2 className="">Who we are?</h2>
 
-        <p className="lg:text-lg ">
-          CENSCOPE is a nationally registered non-governmental organization
-          (NGO) recognized by the Corporate Affairs Commission (CAC) and
-          actively operating in the regions of Borno, Adamawa, and Yobe states.
-          Established in 2018, CENSCOPE was created with the mission to provide
-          comprehensive support to individuals and communities who have been
-          adversely affected by violent conflicts and natural disasters. Our
-          programming is designed to address the urgent needs of victims by
-          offering a wide range of interventions aimed at rebuilding lives and
-          restoring community stability.
-        </p>
+        <div className="space-y-4 lg:text-lg">
+          <p>
+            The Centre for Social Cohesion, Peace and Empowerment (CENSCOPE) is a national non-profit organization registered with Nigeria&apos;s Corporate Affairs Commission (CAC/IT/110963). Founded in 2018 and headquartered in Maiduguri, Borno State, CENSCOPE was established in response to the humanitarian crisis caused by armed conflict and natural disasters across the Lake Chad Basin.
+          </p>
+          <p>
+            CENSCOPE promotes self-sustainability, equality, and social justice, focusing on protection, peacebuilding, livelihoods, education, WASH, climate change, and good governance. The organization partners with national and international actors including UN agencies and international non-governmental organizations to deliver principled humanitarian response and long-term development.
+          </p>
+        </div>
       </div>
 
       <div className="w-full">

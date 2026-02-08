@@ -7,6 +7,10 @@ import { OurCommitment } from "./(sections)/our-commitment";
 import { OurImpact } from "./(sections)/our-impact";
 import { OurDonors } from "./(sections)/our-donors";
 import { WhoWeAre } from "./(sections)/who-we-are";
+import { VisionMission } from "./(sections)/vision-mission";
+import { CoreValues } from "./(sections)/core-values";
+import { GeographicCoverage } from "./(sections)/geographic-coverage";
+import { OrganizationalStructure } from "./(sections)/organizational-structure";
 import { aboutMetadata } from "@/config/metadata";
 
 export const metadata = aboutMetadata
@@ -22,6 +26,10 @@ export default function Page() {
       />
       <div className="flex flex-col gap-10 md:gap-14 xl:gap-16">
         <WhoWeAre />
+        <VisionMission />
+        <CoreValues />
+        <GeographicCoverage />
+        <OrganizationalStructure />
         <OurDonors />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12 pb-8 flex flex-col gap-4 md:gap-6 lg:gap-8">
           <div className="text-center max-w-4xl mx-auto">

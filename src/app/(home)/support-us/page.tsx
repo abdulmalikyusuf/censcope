@@ -1,4 +1,5 @@
 import { Hero } from "@/components/hero";
+import { DonationForm } from "@/components/donation-form";
 import { supportMetadata } from "@/config/metadata";
 import SupportUs from "src/assets/images/support-us.jpg";
 
@@ -87,6 +88,13 @@ export default function Page() {
               Every donation directly contributes to a safer, more empowered Northeast Nigeria. Whether you are funding a startup kit for a woman entrepreneur or a life-saving EORE session, your support is vital.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Donation Form Section */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <DonationForm />
         </div>
       </section>
 

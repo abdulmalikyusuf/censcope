@@ -7,9 +7,11 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navlinks = [
-  { label: "about us", href: "/about-us" },
+  { label: "who we are", href: "/about-us" },
+  { label: "what we do", href: "/our-actions" },
   { label: "news", href: "/news" },
-  { label: "our actions", href: "/our-actions" },
+  { label: "partnership", href: "/partnership" },
+  { label: "career", href: "/career" },
   { label: "support us", href: "/support-us" },
 ];
 
@@ -68,9 +70,17 @@ export default function Header() {
             {link.label}
           </Link>
         ))}
+        <Link
+          href="/support-us"
+          className={`mt-4 md:mt-0 px-6 py-2 md:py-2.5 rounded-md font-semibold text-base md:text-sm transition-all ${
+            isOpaque
+              ? "bg-cyan-600 text-white hover:bg-cyan-700"
+              : "bg-white text-cyan-600 hover:bg-gray-100 md:bg-cyan-600 md:text-white md:hover:bg-cyan-700"
+          } ${open ? "opacity-100" : "md:opacity-100"}`}
+        >
+          Donate Now
+        </Link>
       </nav>
-
-      {/* <IoSearch className="md:hidden text-2xl transition-all hover:bg-cyan-600 hover:text-white p-3 rounded-full w-12 h-12 ml-auto" /> */}
     </header>
   );
 }

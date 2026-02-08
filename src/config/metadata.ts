@@ -149,3 +149,45 @@ export const actionsMetadata: Metadata = {
     images: [ogImage],
   },
 };
+
+/* ----------------------------- CAREER ----------------------------- */
+export const careerMetadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  twitter: {
+    card: "summary_large_image",
+    images: [ogImage],
+  },
+  title: "Career Opportunities | CENSCOPE - Join Our Mission",
+  description:
+    "Join CENSCOPE in making a difference. Explore career opportunities with us and be part of a team dedicated to empowering communities, building peace, and transforming lives across Northeast Nigeria.",
+  openGraph: {
+    title: "Career Opportunities at CENSCOPE",
+    description:
+      "Work with CENSCOPE to advance peace, resilience, and sustainable development. Explore current openings and learn how to join our team.",
+    url: "/career",
+    siteName: "CENSCOPE",
+    type: "website",
+    images: [ogImage],
+  },
+};
+
+/* ----------------------------- PARTNERSHIP ----------------------------- */
+export const partnershipMetadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  twitter: {
+    card: "summary_large_image",
+    images: [ogImage],
+  },
+  title: "Partnership | CENSCOPE - Partner With Us",
+  description:
+    "Partner with CENSCOPE to create lasting impact in communities across Northeast Nigeria. Join hands with us to build a legacy of enduring peace, empowerment, and social equity.",
+  openGraph: {
+    title: "Partner With CENSCOPE",
+    description:
+      "Join a network of organizations committed to creating lasting change. Partner with CENSCOPE to advance peace, resilience, and sustainable development.",
+    url: "/partnership",
+    siteName: "CENSCOPE",
+    type: "website",
+    images: [ogImage],
+  },
+};

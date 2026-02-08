@@ -92,6 +92,20 @@ export const postsToTagsRelations = relations(postsToTags, ({ one }) => ({
   }),
 }));
 
+export const settings = pgTable("settings", {
+  key: varchar("key", { length: 255 }).primaryKey(),
+  value: text("value").notNull(),
+});
+
+export const reports = pgTable("reports", {
+  id: text("cuid")
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  title: text("title").notNull(),
+  fileUrl: text("file_url").notNull(),
+  ...timestamps,
+});
+
 export type InsertUser = typeof users.$inferInsert;
 export type SelectUser = typeof users.$inferSelect;
 export type InsertPost = typeof posts.$inferInsert;
@@ -100,3 +114,7 @@ export type InsertTag = typeof tags.$inferInsert;
 export type SelectTag = typeof tags.$inferSelect;
 export type InsertImage = typeof images.$inferInsert;
 export type SelectImage = typeof images.$inferSelect;
+export type InsertSetting = typeof settings.$inferInsert;
+export type SelectSetting = typeof settings.$inferSelect;
+export type InsertReport = typeof reports.$inferInsert;
+export type SelectReport = typeof reports.$inferSelect;

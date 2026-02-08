@@ -9,6 +9,8 @@ import Newline from "./(sections)/newsline";
 import { Actions } from "./(sections)/actions";
 import { Discover } from "./(sections)/discover";
 import { SocialMedia } from "./(sections)/socialmedia";
+import { ExecutiveDirector } from "./(sections)/executive-director";
+import { CTAButtons } from "./(sections)/cta-buttons";
 import { homeMetadata } from '@/config/metadata';
 
 export const dynamic = "force-dynamic";
@@ -44,6 +46,8 @@ export default async function Page() {
     <>
       <Banner />
       {postsWithTags.length > 0 && <Newline posts={postsWithTags} />}
+      <CTAButtons />
+      <ExecutiveDirector />
       <Support />
       <Actions />
       <Discover />

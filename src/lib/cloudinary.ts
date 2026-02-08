@@ -20,6 +20,19 @@ export async function uploadToCloudinary(fileURI: string, subFolder: string) {
       console.log(error);
     });
 }
+
+export async function uploadRawToCloudinary(fileURI: string, subFolder: string) {
+  return await cloudinary.uploader
+    .upload(fileURI, {
+      resource_type: "raw",
+      folder: `censcope/${subFolder}`,
+    })
+    .then((result) => result)
+    .catch((error) => {
+      console.log(error);
+      throw error;
+    });
+}
 export async function deleteFromCloudinary(
   url: string,
   resourceType = "image"
