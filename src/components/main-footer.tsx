@@ -62,7 +62,13 @@ export default function Footer() {
           <div className="h-px w-full bg-white/10 mb-8"></div>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <Link href="/" className="hover:opacity-80 transition-opacity">
-            
+              <Image
+                alt="CENSCOPE logo"
+                src="/LOGOJ2.png"
+                width={120}
+                height={28}
+                className="h-12 w-auto"
+              />
             </Link>
             <p className="text-center text-white/60 text-base">
               © {new Date().getFullYear()} Center for Social Cohesion, Peace and Empowerment (CENSCOPE). All rights

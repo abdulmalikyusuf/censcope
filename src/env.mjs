@@ -19,7 +19,7 @@ export const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
-    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: z.string(),
+    NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: z.string().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,

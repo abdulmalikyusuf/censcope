@@ -4,6 +4,7 @@ import { supportMetadata } from "@/config/metadata";
 import SupportUs from "src/assets/images/support-us.jpg";
 
 export const metadata = supportMetadata;
+export const dynamic = "force-dynamic";
 
 export default function Page() {
   return (
