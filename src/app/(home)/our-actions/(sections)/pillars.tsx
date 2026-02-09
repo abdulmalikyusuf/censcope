@@ -117,12 +117,12 @@ export function Pillars() {
         <p className="text-sm font-medium tracking-wide text-cyan-600 uppercase">Our Approach</p>
         <h2 className="mt-1 text-gray-900 font-bold text-2xl md:text-3xl lg:text-4xl">Six Core Pillars</h2>
         <p className="mt-2 lg:text-xl text-gray-600">
-          Together, these six pillars form a comprehensive and interconnected framework for advancing peace, resilience, and sustainable development across Nigeria's most vulnerable regions.
+          Together, these six pillars form a comprehensive and interconnected framework for advancing peace, resilience, and sustainable development across Nigeria&apos;s most vulnerable regions.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-16">
-        {pillars.map((pillar, index) => {
+        {pillars.map((pillar) => {
           const Icon = pillar.icon;
           return (
             <div

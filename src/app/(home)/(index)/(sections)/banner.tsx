@@ -34,12 +34,7 @@ export function Banner({ backgroundImageUrl }: BannerProps) {
         <p className="text-white/90 text-sm md:text-base font-medium">
           Strategic Plan 2026–2031
         </p>
-        <Link
-          href="/support-us"
-          className="px-8 py-4 bg-cyan-600 text-white font-bold text-lg md:text-xl rounded-md hover:bg-cyan-700 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-        >
-          Donate Now
-        </Link>
+       
       </div>
     </section>
   );

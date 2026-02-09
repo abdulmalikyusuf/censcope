@@ -12,6 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { env } from "@/env.mjs";
 
+const paystackPublicKey = env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY ?? "";
+
 const donationSchema = z.object({
   amount: z.string().min(1, "Amount is required").refine(
     (val) => {
@@ -48,7 +50,7 @@ export function DonationForm() {
   });
 
   const initializePayment = usePaystackPayment({
-    publicKey: env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    publicKey: paystackPublicKey,
   });
 
   const onSubmit = (values: DonationFormValues) => {
@@ -86,9 +88,9 @@ export function DonationForm() {
             : []),
         ],
       },
-      publicKey: env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+      publicKey: paystackPublicKey,
       text: "Donate Now",
-      onSuccess: async (reference: any) => {
+      onSuccess: async (reference: { reference: string }) => {
         setIsProcessing(false);
         
         // Verify payment on the server
