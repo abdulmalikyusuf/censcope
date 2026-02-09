@@ -17,6 +17,7 @@ import { posts, tags as tagsTable, users } from "@/db/schema";
 export const metadata: Metadata = {
   title: "Home",
 };
+export const dynamic = "force-dynamic";
 
 const searchParamsCache = createSearchParamsCache({
   q: parseAsString.withDefault(""),

@@ -5,7 +5,6 @@ import {
   parseAsString,
   parseAsStringEnum,
 } from "nuqs/server";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { db } from "@/db";
 import { posts, tags as tagsTable, users } from "@/db/schema";
@@ -30,6 +29,7 @@ const searchParamsCache = createSearchParamsCache({
 });
 
 export const metadata = newsMetadata;
+export const dynamic = "force-dynamic";
 
 async function Page(props: { searchParams: SearchParams }) {
   const searchParams = await props.searchParams;
@@ -90,7 +90,7 @@ async function Page(props: { searchParams: SearchParams }) {
     tags: post.tags.map((p2t) => p2t.tag),
   }));
   return (
-    <NuqsAdapter>
+    <>
       <Banner />
       <Filter count={finalPosts.length} tags={tags} authors={authors} />
       <div className="pb-12 lg:pb-20 max-w-7xl [1520px] w-full mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,7 +111,7 @@ async function Page(props: { searchParams: SearchParams }) {
         {/* </div> */}
         <Pagination totalPages={totalPages} />
       </div>
-    </NuqsAdapter>
+    </>
   );
 }
 
